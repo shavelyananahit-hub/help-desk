@@ -1,0 +1,678 @@
+/* =======================================
+   Օгнуthyunen Srgaran Karavarum Hamakarg
+   Global Styles — Glassmorphism Dark Theme
+   ======================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ---- CSS Variables ---- */
+:root {
+  --guyner-hsnakan: #0f0f1a;
+  --guyner-kartik: #1a1a2e;
+  --guyner-varchnyor: #16213e;
+  --guyner-karnak: #0d3b66;
+  --sheshtak-hsnakan: #6c63ff;
+  --sheshtak-bnagitseri: #a78bfa;
+  --sheshtak-patki: #38bdf8;
+  --kanach-haj: #10b981;
+  --karmir-skhalt: #f43f5e;
+  --deghin-zgushatsumn: #f59e0b;
+  --spitaki-guyn: #f0f0ff;
+  --magraguyn: #94a3b8;
+  --ardi-gnats: rgba(255, 255, 255, 0.07);
+  --ardi-yezerp: rgba(255, 255, 255, 0.12);
+  --ardi-shat-yezerp: rgba(255, 255, 255, 0.18);
+  --shade-kakhvaguy: rgba(0, 0, 0, 0.4);
+  --antsordagich: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --shade-border: rgba(255, 255, 255, 0.1);
+  --kangnishneri-radius: 16px;
+  --patoshutyan-radius: 12px;
+  --koghmakin-radius: 8px;
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans Armenian', 'Inter', -apple-system, sans-serif;
+  background: var(--guyner-hsnakan);
+  color: var(--spitaki-guyn);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(108, 99, 255, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(167, 139, 250, 0.06) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* ---- Layout ---- */
+.hushardzakutyun-kartik {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hastsumnayin-kartik {
+  padding: 100px 24px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ---- Glassmorphism Card ---- */
+.apaki-bak {
+  background: var(--ardi-gnats);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--shade-border);
+  border-radius: var(--kangnishneri-radius);
+  transition: var(--antsordagich);
+}
+
+.apaki-bak:hover {
+  background: var(--ardi-yezerp);
+  border-color: rgba(108, 99, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Page Header ---- */
+.ejhakutyunayin-bnagir {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ejhakutyunayin-anagir {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--spitaki-guyn) 0%, var(--sheshtak-bnagitseri) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ejhakutyunayin-nkaragrutyun {
+  color: var(--magraguyn);
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+/* ---- Stats Grid ---- */
+.vichakagiri-vankuyk {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.vichakagiri-bak {
+  background: var(--ardi-gnats);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--shade-border);
+  border-radius: var(--kangnishneri-radius);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--antsordagich);
+}
+
+.vichakagiri-bak::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--sheshtak-hsnakan);
+}
+
+.vichakagiri-bak:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+}
+
+.vichakagiri-bak.kanach::before { background: var(--kanach-haj); }
+.vichakagiri-bak.karmir::before { background: var(--karmir-skhalt); }
+.vichakagiri-bak.deghin::before { background: var(--deghin-zgushatsumn); }
+.vichakagiri-bak.kapuyt::before { background: var(--sheshtak-patki); }
+
+.vichakagiri-hamara {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--spitaki-guyn);
+}
+
+.vichakagiri-patiakner {
+  font-size: 0.85rem;
+  color: var(--magraguyn);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.vichakagiri-nshanakum {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+/* ---- Table ---- */
+.ashkhatanoc-bak {
+  background: var(--ardi-gnats);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--shade-border);
+  border-radius: var(--kangnishneri-radius);
+  overflow: hidden;
+}
+
+.ashkhatanoc-zarmik {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ashkhatanoc-zarmik th {
+  background: rgba(108, 99, 255, 0.15);
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sheshtak-bnagitseri);
+  border-bottom: 1px solid var(--shade-border);
+}
+
+.ashkhatanoc-zarmik td {
+  padding: 16px 20px;
+  font-size: 0.9rem;
+  color: var(--spitaki-guyn);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+.ashkhatanoc-zarmik tr:last-child td {
+  border-bottom: none;
+}
+
+.ashkhatanoc-zarmik tr:hover td {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* ---- Badges / Tags ---- */
+.petakan-nshani {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.petakan-nshani.bac { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+.petakan-nshani.ntsaghik { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+.petakan-nshani.pakvats { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.3); }
+
+.kargnish-nshani.tsatsr { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+.kargnish-nshani.mijin { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+.kargnish-nshani.bardzr { background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.3); }
+
+.der-nshani { background: rgba(108, 99, 255, 0.15); color: var(--sheshtak-bnagitseri); border: 1px solid rgba(108, 99, 255, 0.3); }
+.aktiv-nshani { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
+.voktiv-nshani { background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.3); }
+
+/* ---- Buttons ---- */
+.kochumn-knop {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--patoshutyan-radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: var(--antsordagich);
+  font-family: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.kochumn-knop:focus-visible {
+  outline: 2px solid var(--sheshtak-hsnakan);
+  outline-offset: 2px;
+}
+
+.hsnakan-knop {
+  background: linear-gradient(135deg, var(--sheshtak-hsnakan), #8b5cf6);
+  color: white;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+}
+
+.hsnakan-knop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(108, 99, 255, 0.5);
+}
+
+.tarmarkutyan-knop {
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--sheshtak-patki);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.tarmarkutyan-knop:hover {
+  background: rgba(56, 189, 248, 0.25);
+  transform: translateY(-1px);
+}
+
+.jnjelu-knop {
+  background: rgba(244, 63, 94, 0.15);
+  color: var(--karmir-skhalt);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.jnjelu-knop:hover {
+  background: rgba(244, 63, 94, 0.25);
+  transform: translateY(-1px);
+}
+
+.khnamelu-knop {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--magraguyn);
+  border: 1px solid var(--shade-border);
+}
+
+.khnamelu-knop:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ---- Action Buttons Row ---- */
+.gortsolutyunneri-shor {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.patan-knop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--koghmakin-radius);
+  border: none;
+  cursor: pointer;
+  transition: var(--antsordagich);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+/* ---- Modal ---- */
+.modal-arka {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: modal-arka-nerkayel 0.2s ease;
+}
+
+@keyframes modal-arka-nerkayal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-barek {
+  background: linear-gradient(135deg, #1e1e35 0%, #16213e 100%);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  border-radius: var(--kangnishneri-radius);
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(108, 99, 255, 0.1);
+  animation: modal-nerkayal 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modal-nerkayal {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-vercnagrutyun {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-anagir {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--spitaki-guyn);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-muten-knop {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--shade-border);
+  border-radius: var(--koghmakin-radius);
+  color: var(--magraguyn);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: var(--antsordagich);
+}
+
+.modal-muten-knop:hover {
+  background: rgba(244, 63, 94, 0.2);
+  color: var(--karmir-skhalt);
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+.modal-marmni {
+  padding: 28px;
+}
+
+.modal-kolutyun {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 28px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ---- Form ---- */
+.dzevakert-khumb {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dzevakert-dasht {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dzevakert-dzevagir {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--magraguyn);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.dzevakert-dzevagir.pahanjvats::after {
+  content: ' *';
+  color: var(--karmir-skhalt);
+}
+
+.dzevakert-muts,
+.dzevakert-mintchev,
+.dzevakert-bnagir {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--patoshutyan-radius);
+  color: var(--spitaki-guyn);
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: var(--antsordagich);
+  padding: 12px 16px;
+  width: 100%;
+}
+
+.dzevakert-muts:focus,
+.dzevakert-mintchev:focus,
+.dzevakert-bnagir:focus {
+  outline: none;
+  border-color: var(--sheshtak-hsnakan);
+  background: rgba(108, 99, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+}
+
+.dzevakert-muts::placeholder,
+.dzevakert-bnagir::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
+
+.dzevakert-mintchev {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
+}
+
+.dzevakert-bnagir {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.dzevakert-shor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.dzevakert-skhalt {
+  color: var(--karmir-skhalt);
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/* ---- Search/Filter Bar ---- */
+.kndurutyun-bak {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pretrutyan-muts-bak {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.pretrutyan-nshani {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--magraguyn);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.pretrutyan-muts {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--patoshutyan-radius);
+  color: var(--spitaki-guyn);
+  font-size: 0.9rem;
+  font-family: inherit;
+  padding: 11px 16px 11px 42px;
+  width: 100%;
+  transition: var(--antsordagich);
+}
+
+.pretrutyan-muts:focus {
+  outline: none;
+  border-color: var(--sheshtak-hsnakan);
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+}
+
+.pretrutyan-muts::placeholder { color: rgba(148, 163, 184, 0.5); }
+
+/* ---- Notifications ---- */
+.tsanusatsurn-shrjar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tsanusatsurn-bak {
+  background: var(--ardi-gnats);
+  border: 1px solid var(--shade-border);
+  border-radius: var(--patoshutyan-radius);
+  padding: 18px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: var(--antsordagich);
+  position: relative;
+  overflow: hidden;
+}
+
+.tsanusatsurn-bak.kardatsvatsd {
+  opacity: 0.6;
+}
+
+.tsanusatsurn-bak.nekardatsvatsd {
+  border-left: 3px solid var(--sheshtak-hsnakan);
+}
+
+.tsanusatsurn-nshani {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(108, 99, 255, 0.15);
+}
+
+/* ---- Delete Confirm Modal ---- */
+.jnjelu-modal-barek {
+  text-align: center;
+  padding: 12px 0;
+}
+
+.jnjelu-modal-nshani {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.jnjelu-modal-anagir {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.jnjelu-modal-nkaragrutyun {
+  color: var(--magraguyn);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ---- Toast notifications ---- */
+.toast-zanazan {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.toast-bak {
+  background: linear-gradient(135deg, #1e1e35, #16213e);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  border-radius: var(--patoshutyan-radius);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  animation: toast-nerkayal 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  min-width: 280px;
+}
+
+@keyframes toast-nerkayal {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.toast-bak.hajalutyun { border-color: rgba(16, 185, 129, 0.5); }
+.toast-bak.skhalt { border-color: rgba(244, 63, 94, 0.5); }
+
+/* ---- Empty State ---- */
+.datark-vichak {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--magraguyn);
+}
+
+.datark-nshani { font-size: 4rem; margin-bottom: 16px; }
+.datark-anagir { font-size: 1.1rem; font-weight: 600; color: var(--spitaki-guyn); margin-bottom: 8px; }
+.datark-nkaragrutyun { font-size: 0.9rem; }
+
+/* ---- Loading ---- */
+.barcracum-vichak {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--magraguyn);
+}
+
+.barcracum-shrjanag {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--sheshtak-hsnakan);
+  border-radius: 50%;
+  animation: barcracum 0.8s linear infinite;
+}
+
+@keyframes barcracum {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .hastsumnayin-kartik { padding: 90px 16px 32px; }
+  .ejhakutyunayin-anagir { font-size: 1.5rem; }
+  .dzevakert-shor { grid-template-columns: 1fr; }
+  .vichakagiri-vankuyk { grid-template-columns: repeat(2, 1fr); }
+  .ashkhatanoc-zarmik { display: block; overflow-x: auto; }
+}
+
+@media (max-width: 480px) {
+  .vichakagiri-vankuyk { grid-template-columns: 1fr; }
+}

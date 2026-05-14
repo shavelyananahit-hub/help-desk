@@ -1,0 +1,7 @@
+# Migrations — Bazayum Patumner (Database Migrations)
+# Sequelize CLI-y ksteghtsi migration fayler aystеgh:
+# npx sequelize-cli migration:generate --name create-ogtaterneр
+
+# Hamakargы istguma auto-sync-ov (syncBaza function in models/index.js)
+# Ustayi bazayum migration-nery chpahanjvum.
+# Sinkhy patarastvaky vor Sequelize CLI-n skhalar chi tarа:

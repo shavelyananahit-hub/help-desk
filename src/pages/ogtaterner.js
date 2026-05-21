@@ -15,7 +15,7 @@ export default function OgtaterneriKaravarum() {
   const [jnjumBarcracumKa, setJnjumBarcracumKa] = useState(false);
   const [toast, setToast] = useState(null);
 
-  const tsnuytsToast = useCallback((haghordagutyun, tesak = 'hajalutyun') => {
+  const tsnuytsToast = useCallback((haghordagutyun, tesak = 'հաջողություն') => {
     setToast({ haghordagutyun, tesak });
     setTimeout(() => setToast(null), 3500);
   }, []);
@@ -25,9 +25,9 @@ export default function OgtaterneriKaravarum() {
     try {
       const pataskhan = await fetch('/api/ogtaterner');
       const tvyalner = await pataskhan.json();
-      if (tvyalner.hajalutyun) setBololOgtaterneр(tvyalner.tvyalner);
+      if (tvyalner.հաջողություն) setBololOgtaterneр(tvyalner.tvyalner);
     } catch (e) {
-      tsnuytsToast('Ogtaterneр-y berelis skhalt', 'skhalt');
+      tsnuytsToast('Օգտատերեր բերելիս սխալ', 'սխալ');
     } finally {
       setBarcracumKa(false);
     }
@@ -44,8 +44,8 @@ export default function OgtaterneriKaravarum() {
       body: JSON.stringify(dzevakertTvyalner),
     });
     const tvyalner = await pataskhan.json();
-    if (!tvyalner.hajalutyun) throw new Error(tvyalner.skhalt);
-    tsnuytsToast(xmbagrvogOgtater ? 'Ogtater-y hаjolothabar xmbagrvets' : 'Nor ogtater-y hаjolothabar steghtsvel');
+    if (!tvyalner.հաջողություն) throw new Error(tvyalner.սխալ);
+    tsnuytsToast(xmbagrvogOgtater ? 'Օգտատերը հաջողությամբ խմբագրվեց' : 'Նոր օգտատեր հաջողությամբ ստեղծվեց');
     bererOgtaterneр();
   };
 
@@ -54,12 +54,12 @@ export default function OgtaterneriKaravarum() {
     try {
       const pataskhan = await fetch(`/api/ogtaterner/${jnjvogOgtaterId}`, { method: 'DELETE' });
       const tvyalner = await pataskhan.json();
-      if (!tvyalner.hajalutyun) throw new Error(tvyalner.skhalt);
-      tsnuytsToast('Ogtater-y hаjolothabar jnjvel');
+      if (!tvyalner.հաջողություն) throw new Error(tvyalner.սխալ);
+      tsnuytsToast('Օգտատերը հաջողությամբ ջնջվեց');
       setJnjelModalBatsKa(false);
       bererOgtaterneр();
     } catch (e) {
-      tsnuytsToast(e.message || 'Jnjelu skhalt', 'skhalt');
+      tsnuytsToast(e.message || 'Ջնջելու սխալ', 'սխալ');
     } finally {
       setJnjumBarcracumKa(false);
     }
@@ -75,18 +75,18 @@ export default function OgtaterneriKaravarum() {
   return (
     <>
       <Head>
-        <title>Ogtaterneр — Help Desk</title>
-        <meta name="description" content="Ogtaterneri karavarum" />
+        <title>Օգտատերեր — Աջակցության Կենտրոն</title>
+        <meta name="description" content="Օգտատերերի կառավարում" />
       </Head>
 
       <main className="hastsumnayin-kartik">
         <div className="ejhakutyunayin-bnagir">
           <div>
-            <h1 className="ejhakutyunayin-anagir">👥 Ogtaterneр</h1>
-            <p className="ejhakutyunayin-nkaragrutyun">{bololOgtaterneр.length} ogtater grvagrvats e hamakargum</p>
+            <h1 className="ejhakutyunayin-anagir">👥 Օգտատերեր</h1>
+            <p className="ejhakutyunayin-nkaragrutyun">{bololOgtaterneр.length} օգտատեր գրանցված է համակարգում</p>
           </div>
           <button className="kochumn-knop hsnakan-knop" onClick={() => { setXmbagrvogOgtater(null); setSteghcelModalBatsKa(true); }} id="steghcel-nor-ogtater">
-            ✨ Nor Ogtater
+            ✨ Նոր Օգտատեր
           </button>
         </div>
 
@@ -94,7 +94,7 @@ export default function OgtaterneriKaravarum() {
         <div className="kndurutyun-bak">
           <div className="pretrutyan-muts-bak">
             <span className="pretrutyan-nshani">🔍</span>
-            <input className="pretrutyan-muts" type="text" placeholder="Vorоnel anun, azganun, el. hasce..."
+            <input className="pretrutyan-muts" type="text" placeholder="Որոնել անուն, ազգանուն, էլ. հասցե..."
               value={pretrutyunArarkogh} onChange={(e) => setPretrutyunArarkogh(e.target.value)} id="ogtater-pretrutyun" />
           </div>
         </div>
@@ -102,23 +102,23 @@ export default function OgtaterneriKaravarum() {
         {/* Table */}
         <div className="ashkhatanoc-bak">
           {barcracumKa ? (
-            <div className="barcracum-vichak"><div className="barcracum-shrjanag" /><span>Bercvum e...</span></div>
+            <div className="barcracum-vichak"><div className="barcracum-shrjanag" /><span>Բեռնվում է...</span></div>
           ) : zarrkvatsOgtaterneр.length === 0 ? (
             <div className="datark-vichak">
               <div className="datark-nshani">👥</div>
-              <div className="datark-anagir">{pretrutyunArarkogh ? 'Voronelov arakutyun chi gtnvel' : 'Ogtaterneр chkan'}</div>
-              <div className="datark-nkaragrutyun">{pretrutyunArarkogh ? 'Patraste ayl vor pretrutyun' : 'Sksel nor ogtater steghtsnelov'}</div>
+              <div className="datark-anagir">{pretrutyunArarkogh ? 'Որոնումով արդյունք չգտնվեց' : 'Օգտատերեր չկան'}</div>
+              <div className="datark-nkaragrutyun">{pretrutyunArarkogh ? 'Կատարեք այլ որոնում' : 'Սկսել նոր օգտատեր ստեղծելով'}</div>
             </div>
           ) : (
             <table className="ashkhatanoc-zarmik" id="ogtaterneр-zavarak">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Аnun Аzganun</th>
-                  <th>El. Hasce</th>
-                  <th>Herakhos</th>
-                  <th>Der</th>
-                  <th>Gortsolutyunner</th>
+                  <th>Անուն Ազգանուն</th>
+                  <th>Էլ. Հասցե</th>
+                  <th>Հեռախոս</th>
+                  <th>Դեր</th>
+                  <th>Գործողություններ</th>
                 </tr>
               </thead>
               <tbody>
@@ -140,10 +140,10 @@ export default function OgtaterneriKaravarum() {
                     <td><span className="petakan-nshani der-nshani">{ogtater.der}</span></td>
                     <td>
                       <div className="gortsolutyunneri-shor">
-                        <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Xmbagrel"
+                        <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Խմբագրել"
                           onClick={() => { setXmbagrvogOgtater(ogtater); setSteghcelModalBatsKa(true); }}
                           id={`xmbagrel-ogtater-${ogtater.id}`}>✏️</button>
-                        <button className="kochumn-knop jnjelu-knop patan-knop" title="Jnjel"
+                        <button className="kochumn-knop jnjelu-knop patan-knop" title="Ջնջել"
                           onClick={() => { setJnjvogOgtaterId(ogtater.id); setJnjelModalBatsKa(true); }}
                           id={`jnjel-ogtater-${ogtater.id}`}>🗑️</button>
                       </div>
@@ -160,14 +160,14 @@ export default function OgtaterneriKaravarum() {
         xmbagrvogOgtater={xmbagrvogOgtater} pahanel={pahanelOgtater} />
 
       <DeleteModal batsKa={jnjelModalBatsKa} vercnel={() => setJnjelModalBatsKa(false)}
-        anagir="Вstahе՞q, vor uccum eq jnjel аyd ogtaterin?"
-        nkaragrutyun="Ogtater-y jnjelu depqum аynkaran tvalyalnery kkorcanven"
+        anagir="Վստա՞հ եք, որ ուզում եք ջնջել այս օգտատիրոջը։"
+        nkaragrutyun="Օգտատիրոջը ջնջելու դեպքում տվյալները կկորչեն"
         hashtvarel={hashtvarel} barcracumKa={jnjumBarcracumKa} />
 
       {toast && (
         <div className="toast-zanazan">
           <div className={`toast-bak ${toast.tesak}`}>
-            <span>{toast.tesak === 'hajalutyun' ? '✅' : '❌'}</span>
+            <span>{toast.tesak === 'հաջողություն' ? '✅' : '❌'}</span>
             <span style={{ fontSize: '0.9rem' }}>{toast.haghordagutyun}</span>
           </div>
         </div>

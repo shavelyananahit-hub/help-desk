@@ -15,7 +15,7 @@ module.exports = {
         updated_at: new Date(),
       },
       {
-        haghordagutyun: 'Ձer "Hamakargichh dandagh e" tikety handnvets Karen Mkrtchyan-in',
+        haghordagutyun: 'Ձer "Hamakargichh dandagh e" tikety handnvets Կարեն Մկրտչյան-in',
         tesak: 'Տեղեկություն',
         kardatsvatsd: true,
         ogtater_id: 3,

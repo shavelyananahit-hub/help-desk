@@ -31,7 +31,7 @@ export default function Modal({ batsKa, vercnel, anagir, nshani, children, lajox
             {nshani && <span>{nshani}</span>}
             {anagir}
           </div>
-          <button className="modal-muten-knop" onClick={vercnel} aria-label="Vercnel" id="modal-muten-knop">
+          <button className="modal-muten-knop" onClick={vercnel} aria-label="Փակել" id="modal-muten-knop">
             ✕
           </button>
         </div>

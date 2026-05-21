@@ -24,11 +24,11 @@ export default async function ashkhatakogh(harc, pataskhan) {
     try {
       const gtvatsТiket = await Tiket.findByPk(tketId, { include: tiketKhmbagrovInclude });
       if (!gtvatsТiket) {
-        return pataskhan.status(404).json({ hajalutyun: false, skhalt: 'Տիկետը չի գտնվել' });
+        return pataskhan.status(404).json({ հաջողություն: false, սխալ: 'Տիկետը չի գտնվել' });
       }
-      return pataskhan.status(200).json({ hajalutyun: true, tvyalner: gtvatsТiket });
-    } catch (skhalt) {
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+      return pataskhan.status(200).json({ հաջողություն: true, tvyalner: gtvatsТiket });
+    } catch (սխալ) {
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
@@ -37,14 +37,14 @@ export default async function ashkhatakogh(harc, pataskhan) {
     try {
       const gtvatsТiket = await Tiket.findByPk(tketId);
       if (!gtvatsТiket) {
-        return pataskhan.status(404).json({ hajalutyun: false, skhalt: 'Տիկետը չի գտնվել' });
+        return pataskhan.status(404).json({ հաջողություն: false, սխալ: 'Տիկետը չի գտնվել' });
       }
       const { vernagir, nkaragrutyun, kargnish, kargavichak, kategoria, ogtater_id, ashkhatakits_id } = harc.body;
       await gtvatsТiket.update({ vernagir, nkaragrutyun, kargnish, kargavichak, kategoria, ogtater_id, ashkhatakits_id });
       const tarmarkacvatsТiket = await Tiket.findByPk(tketId, { include: tiketKhmbagrovInclude });
-      return pataskhan.status(200).json({ hajalutyun: true, tvyalner: tarmarkacvatsТiket });
-    } catch (skhalt) {
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+      return pataskhan.status(200).json({ հաջողություն: true, tvyalner: tarmarkacvatsТiket });
+    } catch (սխալ) {
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
@@ -53,15 +53,15 @@ export default async function ashkhatakogh(harc, pataskhan) {
     try {
       const gtvatsТiket = await Tiket.findByPk(tketId);
       if (!gtvatsТiket) {
-        return pataskhan.status(404).json({ hajalutyun: false, skhalt: 'Տիկետը չի գտնվել' });
+        return pataskhan.status(404).json({ հաջողություն: false, սխալ: 'Տիկետը չի գտնվել' });
       }
       await gtvatsТiket.destroy();
-      return pataskhan.status(200).json({ hajalutyun: true, haghordagutyun: 'Տիկետը հաջողությամբ ջնջվել է' });
-    } catch (skhalt) {
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+      return pataskhan.status(200).json({ հաջողություն: true, haghordagutyun: 'Տիկետը հաջողությամբ ջնջվել է' });
+    } catch (սխալ) {
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
   pataskhan.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
-  return pataskhan.status(405).json({ hajalutyun: false, skhalt: `Մեթոդը ${harc.method} թույլատրված չէ` });
+  return pataskhan.status(405).json({ հաջողություն: false, սխալ: `Մեթոդը ${harc.method} թույլատրված չէ` });
 }

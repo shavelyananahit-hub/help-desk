@@ -28,9 +28,9 @@ export async function syncBaza() {
     await sequelizeCors.authenticate();
     await sequelizeCors.sync({ alter: true });
     console.log('Տվյալների բազան հաջողությամբ համաժամեցվեց');
-  } catch (skhalt) {
-    console.error('Բազայի համաժամեցման սխալ:', skhalt);
-    throw skhalt;
+  } catch (սխալ) {
+    console.error('Բազայի համաժամեցման սխալ:', սխալ);
+    throw սխալ;
   }
 }
 

@@ -1,20 +1,20 @@
-// TsanusatsurnModal — Tsanusatsurni Steghcel/Xmbagrel Modal
+// TsanusatsurnModal — Tsanusatsurni Ստեղծել/Խմբագրել Modal
 import { useState, useEffect } from 'react';
 import Modal from './Modal';
 
 const datarkNakhnayin = {
   haghordagutyun: '',
-  tesak: 'Teghekutyun',
+  tesak: 'Տեղեկություն',
   kardatsvatsd: false,
   ogtater_id: '',
   tiket_id: '',
 };
 
 const tesakerNshanner = {
-  'Teghekutyun': 'ℹ️',
-  'Zgushatsumn': '⚠️',
-  'Skhalt': '❌',
-  'Hajoghuthyun': '✅',
+  'Տեղեկություն': 'ℹ️',
+  'Զգուշացում': '⚠️',
+  'Սխալ': '❌',
+  'Հաջողություն': '✅',
 };
 
 export default function TsanusatsurnModal({ batsKa, vercnel, xmbagrvogTsanusatsurn, pahanel, ogtaterneр = [], tiketer = [] }) {
@@ -27,7 +27,7 @@ export default function TsanusatsurnModal({ batsKa, vercnel, xmbagrvogTsanusatsu
     if (xmbagrvogTsanusatsurn) {
       setDzevakertTvyalner({
         haghordagutyun: xmbagrvogTsanusatsurn.haghordagutyun || '',
-        tesak: xmbagrvogTsanusatsurn.tesak || 'Teghekutyun',
+        tesak: xmbagrvogTsanusatsurn.tesak || 'Տեղեկություն',
         kardatsvatsd: !!xmbagrvogTsanusatsurn.kardatsvatsd,
         ogtater_id: xmbagrvogTsanusatsurn.ogtater_id || '',
         tiket_id: xmbagrvogTsanusatsurn.tiket_id || '',
@@ -46,7 +46,7 @@ export default function TsanusatsurnModal({ batsKa, vercnel, xmbagrvogTsanusatsu
   const pahanel_submit = async (e) => {
     e.preventDefault();
     if (!dzevakertTvyalner.haghordagutyun.trim()) {
-      setSkhalter({ haghordagutyun: 'Haghordagutyuny pahanjvats e' });
+      setSkhalter({ haghordagutyun: 'Հաղորդագրությունը պարտադիր է' });
       return;
     }
     setBarcracumKa(true);
@@ -57,15 +57,15 @@ export default function TsanusatsurnModal({ batsKa, vercnel, xmbagrvogTsanusatsu
         tiket_id: dzevakertTvyalner.tiket_id || null,
       });
       vercnel();
-    } catch (skhalt) {
-      setSkhalter({ global: skhalt.message || 'Skhalt tegi unesal' });
+    } catch (սխալ) {
+      setSkhalter({ global: սխալ.message || 'Սխալ տեղի ունեցավ' });
     } finally {
       setBarcracumKa(false);
     }
   };
 
   return (
-    <Modal batsKa={batsKa} vercnel={vercnel} anagir={norsogum ? 'Tsanusatsurn Xmbagrel' : 'Nor Tsanusatsurn Steghcel'} nshani={norsogum ? '✏️' : '🔔'}>
+    <Modal batsKa={batsKa} vercnel={vercnel} anagir={norsogum ? 'Խմբագրել Ծանուցումը' : 'Ստեղծել Նոր Ծանուցում'} nshani={norsogum ? '✏️' : '🔔'}>
       <form className="dzevakert-khumb" onSubmit={pahanel_submit} id="tsanusatsurn-dzevakert">
         {skhalter.global && (
           <div style={{ background: 'rgba(244,63,94,0.12)', border: '1px solid rgba(244,63,94,0.3)', borderRadius: 10, padding: '12px 16px', color: '#f43f5e', fontSize: '0.9rem' }}>
@@ -74,57 +74,57 @@ export default function TsanusatsurnModal({ batsKa, vercnel, xmbagrvogTsanusatsu
         )}
 
         <div className="dzevakert-dasht">
-          <label className="dzevakert-dzevagir pahanjvats" htmlFor="ts-haghordagutyun">Haghordagutyun</label>
+          <label className="dzevakert-dzevagir pahanjvats" htmlFor="ts-haghordagutyun">Հաղորդագրություն</label>
           <textarea id="ts-haghordagutyun" className="dzevakert-bnagir" value={dzevakertTvyalner.haghordagutyun}
             onChange={(e) => nkaragrel('haghordagutyun', e.target.value)}
-            placeholder="Tsanusatsurni haghordagutyuny..." rows={3} />
+            placeholder="Ծանուցման հաղորդագրությունը..." rows={3} />
           {skhalter.haghordagutyun && <span className="dzevakert-skhalt">{skhalter.haghordagutyun}</span>}
         </div>
 
         <div className="dzevakert-shor">
           <div className="dzevakert-dasht">
-            <label className="dzevakert-dzevagir" htmlFor="ts-tesak">Tesak</label>
+            <label className="dzevakert-dzevagir" htmlFor="ts-tesak">Տեսակ</label>
             <select id="ts-tesak" className="dzevakert-mintchev" value={dzevakertTvyalner.tesak}
               onChange={(e) => nkaragrel('tesak', e.target.value)}>
-              <option value="Teghekutyun">ℹ️ Teghekutyun</option>
-              <option value="Zgushatsumn">⚠️ Zgushatsumn</option>
-              <option value="Skhalt">❌ Skhalt</option>
-              <option value="Hajoghuthyun">✅ Hajoghuthyun</option>
+              <option value="Տեղեկություն">ℹ️ Տեղեկություն</option>
+              <option value="Զգուշացում">⚠️ Զգուշացում</option>
+              <option value="Սխալ">❌ Սխալ</option>
+              <option value="Հաջողություն">✅ Հաջողություն</option>
             </select>
           </div>
           <div className="dzevakert-dasht">
-            <label className="dzevakert-dzevagir" htmlFor="ts-kardatsvatsd">Kardatsvatsd?</label>
+            <label className="dzevakert-dzevagir" htmlFor="ts-kardatsvatsd">Կարդացվա՞ծ է</label>
             <select id="ts-kardatsvatsd" className="dzevakert-mintchev" value={dzevakertTvyalner.kardatsvatsd ? 'true' : 'false'}
               onChange={(e) => nkaragrel('kardatsvatsd', e.target.value === 'true')}>
-              <option value="false">📭 Chkardatsvatsvats</option>
-              <option value="true">📬 Kardatsvatsvats</option>
+              <option value="false">📭 Չկարդացված</option>
+              <option value="true">📬 Կարդացված</option>
             </select>
           </div>
         </div>
 
         <div className="dzevakert-shor">
           <div className="dzevakert-dasht">
-            <label className="dzevakert-dzevagir" htmlFor="ts-ogtater">Stacoghogtater</label>
+            <label className="dzevakert-dzevagir" htmlFor="ts-ogtater">Ստացող օգտատեր</label>
             <select id="ts-ogtater" className="dzevakert-mintchev" value={dzevakertTvyalner.ogtater_id}
               onChange={(e) => nkaragrel('ogtater_id', e.target.value)}>
-              <option value="">— Yntrel Ogtater —</option>
+              <option value="">— Ընտրել Օգտատեր —</option>
               {ogtaterneр.map((o) => <option key={o.id} value={o.id}>{o.anun} {o.azganun}</option>)}
             </select>
           </div>
           <div className="dzevakert-dasht">
-            <label className="dzevakert-dzevagir" htmlFor="ts-tiket">Kapvats Tiket</label>
+            <label className="dzevakert-dzevagir" htmlFor="ts-tiket">Կապված Տոմս</label>
             <select id="ts-tiket" className="dzevakert-mintchev" value={dzevakertTvyalner.tiket_id}
               onChange={(e) => nkaragrel('tiket_id', e.target.value)}>
-              <option value="">— Yntrel Tiket —</option>
+              <option value="">— Ընտրել Տոմս —</option>
               {tiketer.map((t) => <option key={t.id} value={t.id}>#{t.id} {t.vernagir}</option>)}
             </select>
           </div>
         </div>
 
         <div className="modal-kolutyun" style={{ padding: '20px 0 0' }}>
-          <button type="button" className="kochumn-knop khnamelu-knop" onClick={vercnel} disabled={barcracumKa} id="ts-modal-veradardal">Veradardal</button>
+          <button type="button" className="kochumn-knop khnamelu-knop" onClick={vercnel} disabled={barcracumKa} id="ts-modal-veradardal">Վերադառնալ</button>
           <button type="submit" className="kochumn-knop hsnakan-knop" disabled={barcracumKa} id="ts-modal-pahanel">
-            {barcracumKa ? '⏳ Pahanjvum...' : `${norsogum ? '✏️ Pahanel' : '🔔 Steghcel'}`}
+            {barcracumKa ? '⏳ Պահպանվում է...' : `${norsogum ? '✏️ Պահպանել' : '🔔 Ստեղծել'}`}
           </button>
         </div>
       </form>

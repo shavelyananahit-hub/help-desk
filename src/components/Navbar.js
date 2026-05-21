@@ -5,11 +5,11 @@ import { useState, useEffect } from 'react';
 
 // Նավիգացիայի կետեր (Navigation items)
 const navKeteр = [
-  { href: '/', anagir: 'Վahanak', nshani: '📊', id: 'nav-vahanak' },
-  { href: '/ogtaterner', anagir: 'Օгtaterneр', nshani: '👥', id: 'nav-ogtaterner' },
-  { href: '/tiketer', anagir: 'Тiketer', nshani: '🎫', id: 'nav-tiketer' },
-  { href: '/ashkhatakitsner', anagir: 'Аshkhatakitsner', nshani: '👨‍💼', id: 'nav-ashkhatakitsner' },
-  { href: '/tsanusatsurnner', anagir: 'Тsanusatsurnner', nshani: '🔔', id: 'nav-tsanusatsurnner' },
+  { href: '/', anagir: 'Վահանակ', nshani: '📊', id: 'nav-vahanak' },
+  { href: '/ogtaterner', anagir: 'Օգտատերեր', nshani: '👥', id: 'nav-ogtaterner' },
+  { href: '/tiketer', anagir: 'Տոմսեր', nshani: '🎫', id: 'nav-tiketer' },
+  { href: '/ashkhatakitsner', anagir: 'Աշխատակիցներ', nshani: '👨‍💼', id: 'nav-ashkhatakitsner' },
+  { href: '/tsanusatsurnner', anagir: 'Ծանուցումներ', nshani: '🔔', id: 'nav-tsanusatsurnner' },
 ];
 
 export default function Navbar() {
@@ -18,12 +18,12 @@ export default function Navbar() {
   const [tsanusatsuрniQanak, setTsanusatsuрniQanak] = useState(0);
 
   useEffect(() => {
-    // Ստուganl akardatsvatsvats tsanusatsurnner (Fetch unread notifications count)
+    // Ստուganl չկարդացված tsanusatsurnner (Fetch unread notifications count)
     async function bererTsanusatsurnQanak() {
       try {
         const pataskhan = await fetch('/api/tsanusatsurnner?kardatsvatsd=false');
         const tvyalner = await pataskhan.json();
-        if (tvyalner.hajalutyun) setTsanusatsuрniQanak(tvyalner.qanak);
+        if (tvyalner.հաջողություն) setTsanusatsuрniQanak(tvyalner.qanak);
       } catch (e) {
         // Հանգիստ
       }
@@ -37,12 +37,12 @@ export default function Navbar() {
     <>
       <nav className="navbar" id="hsnakan-navbar">
         <div className="navbar-kartik">
-          {/* Նшаnak */}
+          {/* Նշանակ */}
           <Link href="/" className="navbar-nshani-kapuyt" id="navbar-logo">
             <span className="navbar-nshani-nkar">🎯</span>
             <span className="navbar-anagir">
-              <span className="navbar-anagir-hsnakan">Help</span>
-              <span className="navbar-anagir-bnagitseri">Desk</span>
+              <span className="navbar-anagir-hsnakan">Աջակցության</span>
+              <span className="navbar-anagir-bnagitseri">Կենտրոն</span>
             </span>
           </Link>
 
@@ -72,7 +72,7 @@ export default function Navbar() {
             className={`burger-knop ${batsNavAktiv ? 'aktiv' : ''}`}
             onClick={() => setBatsNavAktiv(!batsNavAktiv)}
             id="burger-knop"
-            aria-label="Ցuyts menyu"
+            aria-label="Ցույց տալ մենյուն"
           >
             <span /><span /><span />
           </button>

@@ -1,16 +1,16 @@
-// OgtaterModal — Ogtateri Steghcel/Xmbagrel Modal (User Create/Edit Modal)
+// OgtaterModal — Ogtateri Ստեղծել/Խմբագրել Modal (User Create/Edit Modal)
 import { useState, useEffect } from 'react';
 import Modal from './Modal';
 
 // Deri enthrutyunner (Role options)
-const dereriEnthrutyunner = ['Ադміністратор', 'Հаճахорд', 'Ашкhatakits'];
+const dereriEnthrutyunner = ['Ադմինիստրատոր', 'Հաճախորդ', 'Աշխատակից'];
 
 const datarkNakhnayin = {
   anun: '',
   azganun: '',
   elektronerayin_hasce: '',
   herakhosahamer: '',
-  der: 'Հаճахорд',
+  der: 'Հաճախորդ',
   gtnayin_bard: '',
 };
 
@@ -28,7 +28,7 @@ export default function OgtaterModal({ batsKa, vercnel, xmbagrvogOgtater, pahane
         azganun: xmbagrvogOgtater.azganun || '',
         elektronerayin_hasce: xmbagrvogOgtater.elektronerayin_hasce || '',
         herakhosahamer: xmbagrvogOgtater.herakhosahamer || '',
-        der: xmbagrvogOgtater.der || 'Հаճахорд',
+        der: xmbagrvogOgtater.der || 'Հաճախորդ',
         gtnayin_bard: '',
       });
     } else {
@@ -44,10 +44,10 @@ export default function OgtaterModal({ batsKa, vercnel, xmbagrvogOgtater, pahane
 
   const tvayinabaner = () => {
     const norSkhalter = {};
-    if (!dzevakertTvyalner.anun.trim()) norSkhalter.anun = 'Аnunу pahanjvats e';
-    if (!dzevakertTvyalner.azganun.trim()) norSkhalter.azganun = 'Аzganunу pahanjvats e';
-    if (!dzevakertTvyalner.elektronerayin_hasce.trim()) norSkhalter.elektronerayin_hasce = 'Еl. hascen pahanjvats e';
-    if (!norsogum && !dzevakertTvyalner.gtnayin_bard) norSkhalter.gtnayin_bard = 'Gtnayin bard pahanjvats e';
+    if (!dzevakertTvyalner.anun.trim()) norSkhalter.anun = 'Անունը պարտադիր է';
+    if (!dzevakertTvyalner.azganun.trim()) norSkhalter.azganun = 'Ազգանունը պարտադիր է';
+    if (!dzevakertTvyalner.elektronerayin_hasce.trim()) norSkhalter.elektronerayin_hasce = 'Էլ. հասցեն պարտադիր է';
+    if (!norsogum && !dzevakertTvyalner.gtnayin_bard) norSkhalter.gtnayin_bard = 'Գաղտնաբառը պարտադիր է';
     setSkhalter(norSkhalter);
     return Object.keys(norSkhalter).length === 0;
   };
@@ -59,8 +59,8 @@ export default function OgtaterModal({ batsKa, vercnel, xmbagrvogOgtater, pahane
     try {
       await pahanel(dzevakertTvyalner);
       vercnel();
-    } catch (skhalt) {
-      setSkhalter({ global: skhalt.message || 'Tyarin skhalt tegi unesal' });
+    } catch (սխալ) {
+      setSkhalter({ global: սխալ.message || 'Սխալ տեղի ունեցավ' });
     } finally {
       setBarcracumKa(false);
     }
@@ -70,7 +70,7 @@ export default function OgtaterModal({ batsKa, vercnel, xmbagrvogOgtater, pahane
     <Modal
       batsKa={batsKa}
       vercnel={vercnel}
-      anagir={norsogum ? 'Ogtater Xmbagrel' : 'Nor Ogtater Steghcel'}
+      anagir={norsogum ? 'Խմբագրել Օգտատիրոջը' : 'Ստեղծել Նոր Օգտատեր'}
       nshani={norsogum ? '✏️' : '👤'}
     >
       <form className="dzevakert-khumb" onSubmit={pahanel_submit} id="ogtater-dzevakert">
@@ -82,33 +82,33 @@ export default function OgtaterModal({ batsKa, vercnel, xmbagrvogOgtater, pahane
 
         <div className="dzevakert-shor">
           <div className="dzevakert-dasht">
-            <label className="dzevakert-dzevagir pahanjvats" htmlFor="ogtater-anun">Аnun</label>
+            <label className="dzevakert-dzevagir pahanjvats" htmlFor="ogtater-anun">Անուն</label>
             <input
               id="ogtater-anun"
               className="dzevakert-muts"
               type="text"
               value={dzevakertTvyalner.anun}
               onChange={(e) => nkaragrel('anun', e.target.value)}
-              placeholder="Аram"
+              placeholder="Արամ"
             />
             {skhalter.anun && <span className="dzevakert-skhalt">{skhalter.anun}</span>}
           </div>
           <div className="dzevakert-dasht">
-            <label className="dzevakert-dzevagir pahanjvats" htmlFor="ogtater-azganun">Аzganun</label>
+            <label className="dzevakert-dzevagir pahanjvats" htmlFor="ogtater-azganun">Ազգանուն</label>
             <input
               id="ogtater-azganun"
               className="dzevakert-muts"
               type="text"
               value={dzevakertTvyalner.azganun}
               onChange={(e) => nkaragrel('azganun', e.target.value)}
-              placeholder="Petrosyan"
+              placeholder="Պետրոսյան"
             />
             {skhalter.azganun && <span className="dzevakert-skhalt">{skhalter.azganun}</span>}
           </div>
         </div>
 
         <div className="dzevakert-dasht">
-          <label className="dzevakert-dzevagir pahanjvats" htmlFor="ogtater-email">Еl. Hаsce</label>
+          <label className="dzevakert-dzevagir pahanjvats" htmlFor="ogtater-email">Էլ. Հասցե</label>
           <input
             id="ogtater-email"
             className="dzevakert-muts"
@@ -122,7 +122,7 @@ export default function OgtaterModal({ batsKa, vercnel, xmbagrvogOgtater, pahane
 
         <div className="dzevakert-shor">
           <div className="dzevakert-dasht">
-            <label className="dzevakert-dzevagir" htmlFor="ogtater-herakhosahamer">Herakhos</label>
+            <label className="dzevakert-dzevagir" htmlFor="ogtater-herakhosahamer">Հեռախոս</label>
             <input
               id="ogtater-herakhosahamer"
               className="dzevakert-muts"
@@ -133,7 +133,7 @@ export default function OgtaterModal({ batsKa, vercnel, xmbagrvogOgtater, pahane
             />
           </div>
           <div className="dzevakert-dasht">
-            <label className="dzevakert-dzevagir pahanjvats" htmlFor="ogtater-der">Дер</label>
+            <label className="dzevakert-dzevagir pahanjvats" htmlFor="ogtater-der">Դեր</label>
             <select
               id="ogtater-der"
               className="dzevakert-mintchev"
@@ -149,7 +149,7 @@ export default function OgtaterModal({ batsKa, vercnel, xmbagrvogOgtater, pahane
 
         <div className="dzevakert-dasht">
           <label className="dzevakert-dzevagir pahanjvats" htmlFor="ogtater-gtnayin">
-            Gtnayin Bard {norsogum && '(թողnels datark՝ chi xmbagrvum)'}
+            Գաղտնաբառ {norsogum && '(թողնել դատարկ՝ չխմբագրելու համար)'}
           </label>
           <input
             id="ogtater-gtnayin"
@@ -157,19 +157,19 @@ export default function OgtaterModal({ batsKa, vercnel, xmbagrvogOgtater, pahane
             type="password"
             value={dzevakertTvyalner.gtnayin_bard}
             onChange={(e) => nkaragrel('gtnayin_bard', e.target.value)}
-            placeholder={norsogum ? '••••••••' : 'Minimum 8 nshan'}
+            placeholder={norsogum ? '••••••••' : 'Առնվազն 8 նիշ'}
           />
           {skhalter.gtnayin_bard && <span className="dzevakert-skhalt">{skhalter.gtnayin_bard}</span>}
         </div>
 
         <div className="modal-kolutyun" style={{ padding: '20px 0 0', marginTop: 4 }}>
           <button type="button" className="kochumn-knop khnamelu-knop" onClick={vercnel} disabled={barcracumKa} id="ogtater-modal-veradardal">
-            Veradardal
+            Վերադառնալ
           </button>
           <button type="submit" className="kochumn-knop hsnakan-knop" disabled={barcracumKa} id="ogtater-modal-pahanel">
             {barcracumKa
-              ? <><span className="barcracum-shrjanag" style={{ width: 16, height: 16, borderWidth: 2 }} /> Pahanjvum e...</>
-              : <><span>{norsogum ? '✏️' : '✨'}</span> {norsogum ? 'Пahanеl' : 'Steghcel'}</>
+              ? <><span className="barcracum-shrjanag" style={{ width: 16, height: 16, borderWidth: 2 }} /> Պահպանվում է...</>
+              : <><span>{norsogum ? '✏️' : '✨'}</span> {norsogum ? 'Պահպանել' : 'Ստեղծել'}</>
             }
           </button>
         </div>

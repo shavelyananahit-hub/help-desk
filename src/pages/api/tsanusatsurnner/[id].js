@@ -24,11 +24,11 @@ export default async function ashkhatakogh(harc, pataskhan) {
     try {
       const gtvatsTs = await Tsanusatsurn.findByPk(tsanusatsurniId, { include: tsanusatsurnKhmbagrovInclude });
       if (!gtvatsTs) {
-        return pataskhan.status(404).json({ hajalutyun: false, skhalt: 'Ծանուցումը չի գտնվել' });
+        return pataskhan.status(404).json({ հաջողություն: false, սխալ: 'Ծանուցումը չի գտնվել' });
       }
-      return pataskhan.status(200).json({ hajalutyun: true, tvyalner: gtvatsTs });
-    } catch (skhalt) {
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+      return pataskhan.status(200).json({ հաջողություն: true, tvyalner: gtvatsTs });
+    } catch (սխալ) {
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
@@ -37,14 +37,14 @@ export default async function ashkhatakogh(harc, pataskhan) {
     try {
       const gtvatsTs = await Tsanusatsurn.findByPk(tsanusatsurniId);
       if (!gtvatsTs) {
-        return pataskhan.status(404).json({ hajalutyun: false, skhalt: 'Ծանուցումը չի գտնվել' });
+        return pataskhan.status(404).json({ հաջողություն: false, սխալ: 'Ծանուցումը չի գտնվել' });
       }
       const { haghordagutyun, tesak, kardatsvatsd, ogtater_id, tiket_id } = harc.body;
       await gtvatsTs.update({ haghordagutyun, tesak, kardatsvatsd, ogtater_id, tiket_id });
       const tarmarkacvatsTs = await Tsanusatsurn.findByPk(tsanusatsurniId, { include: tsanusatsurnKhmbagrovInclude });
-      return pataskhan.status(200).json({ hajalutyun: true, tvyalner: tarmarkacvatsTs });
-    } catch (skhalt) {
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+      return pataskhan.status(200).json({ հաջողություն: true, tvyalner: tarmarkacvatsTs });
+    } catch (սխալ) {
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
@@ -53,15 +53,15 @@ export default async function ashkhatakogh(harc, pataskhan) {
     try {
       const gtvatsTs = await Tsanusatsurn.findByPk(tsanusatsurniId);
       if (!gtvatsTs) {
-        return pataskhan.status(404).json({ hajalutyun: false, skhalt: 'Ծանուցումը չի գտնվել' });
+        return pataskhan.status(404).json({ հաջողություն: false, սխալ: 'Ծանուցումը չի գտնվել' });
       }
       await gtvatsTs.destroy();
-      return pataskhan.status(200).json({ hajalutyun: true, haghordagutyun: 'Ծանուցումը հաջողությամբ ջնջվել է' });
-    } catch (skhalt) {
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+      return pataskhan.status(200).json({ հաջողություն: true, haghordagutyun: 'Ծանուցումը հաջողությամբ ջնջվել է' });
+    } catch (սխալ) {
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
   pataskhan.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
-  return pataskhan.status(405).json({ hajalutyun: false, skhalt: `Մեթոդը ${harc.method} թույլատրված չէ` });
+  return pataskhan.status(405).json({ հաջողություն: false, սխալ: `Մեթոդը ${harc.method} թույլատրված չէ` });
 }

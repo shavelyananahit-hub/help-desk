@@ -19,11 +19,11 @@ export default async function ashkhatakogh(harc, pataskhan) {
     try {
       const gtvatsAshkhatakits = await Ashkhatakits.findByPk(ashkhatakitsiId);
       if (!gtvatsAshkhatakits) {
-        return pataskhan.status(404).json({ hajalutyun: false, skhalt: 'Աշխատակիցը չի գտնվել' });
+        return pataskhan.status(404).json({ հաջողություն: false, սխալ: 'Աշխատակիցը չի գտնվել' });
       }
-      return pataskhan.status(200).json({ hajalutyun: true, tvyalner: gtvatsAshkhatakits });
-    } catch (skhalt) {
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+      return pataskhan.status(200).json({ հաջողություն: true, tvyalner: gtvatsAshkhatakits });
+    } catch (սխալ) {
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
@@ -32,16 +32,16 @@ export default async function ashkhatakogh(harc, pataskhan) {
     try {
       const gtvatsAshkhatakits = await Ashkhatakits.findByPk(ashkhatakitsiId);
       if (!gtvatsAshkhatakits) {
-        return pataskhan.status(404).json({ hajalutyun: false, skhalt: 'Աշխատակիցը չի գտնվել' });
+        return pataskhan.status(404).json({ հաջողություն: false, սխալ: 'Աշխատակիցը չի գտնվել' });
       }
       const { anun, azganun, bakhum, pashton, elektronerayin_hasce, herakhosahamer, aktiv } = harc.body;
       await gtvatsAshkhatakits.update({ anun, azganun, bakhum, pashton, elektronerayin_hasce, herakhosahamer, aktiv });
-      return pataskhan.status(200).json({ hajalutyun: true, tvyalner: gtvatsAshkhatakits });
-    } catch (skhalt) {
-      if (skhalt.name === 'SequelizeUniqueConstraintError') {
-        return pataskhan.status(409).json({ hajalutyun: false, skhalt: 'Էլ. հասցեն արդեն գրանցված է' });
+      return pataskhan.status(200).json({ հաջողություն: true, tvyalner: gtvatsAshkhatakits });
+    } catch (սխալ) {
+      if (սխալ.name === 'SequelizeUniqueConstraintError') {
+        return pataskhan.status(409).json({ հաջողություն: false, սխալ: 'Էլ. հասցեն արդեն գրանցված է' });
       }
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
@@ -50,15 +50,15 @@ export default async function ashkhatakogh(harc, pataskhan) {
     try {
       const gtvatsAshkhatakits = await Ashkhatakits.findByPk(ashkhatakitsiId);
       if (!gtvatsAshkhatakits) {
-        return pataskhan.status(404).json({ hajalutyun: false, skhalt: 'Աշխատակիցը չի գտնվել' });
+        return pataskhan.status(404).json({ հաջողություն: false, սխալ: 'Աշխատակիցը չի գտնվել' });
       }
       await gtvatsAshkhatakits.destroy();
-      return pataskhan.status(200).json({ hajalutyun: true, haghordagutyun: 'Աշխատակիցը հաջողությամբ ջնջվել է' });
-    } catch (skhalt) {
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+      return pataskhan.status(200).json({ հաջողություն: true, haghordagutyun: 'Աշխատակիցը հաջողությամբ ջնջվել է' });
+    } catch (սխալ) {
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
   pataskhan.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
-  return pataskhan.status(405).json({ hajalutyun: false, skhalt: `Մեթոդը ${harc.method} թույլատրված չէ` });
+  return pataskhan.status(405).json({ հաջողություն: false, սխալ: `Մեթոդը ${harc.method} թույլատրված չէ` });
 }

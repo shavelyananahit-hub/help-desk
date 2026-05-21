@@ -30,12 +30,12 @@ export default async function ashkhatakogh(harc, pataskhan) {
         order: [['created_at', 'DESC']],
       });
       return pataskhan.status(200).json({
-        hajalutyun: true,
+        հաջողություն: true,
         tvyalner: bololTiketer,
         qanak: bololTiketer.length,
       });
-    } catch (skhalt) {
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+    } catch (սխալ) {
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
@@ -45,7 +45,7 @@ export default async function ashkhatakogh(harc, pataskhan) {
       const { vernagir, nkaragrutyun, kargnish, kargavichak, kategoria, ogtater_id, ashkhatakits_id } = harc.body;
 
       if (!vernagir) {
-        return pataskhan.status(400).json({ hajalutyun: false, skhalt: 'Վերնագիրը պարտադիր է' });
+        return pataskhan.status(400).json({ հաջողություն: false, սխալ: 'Վերնագիրը պարտադիր է' });
       }
 
       const norTiket = await Tiket.create({
@@ -64,12 +64,12 @@ export default async function ashkhatakogh(harc, pataskhan) {
           { model: Ashkhatakits, as: 'handnvatsAshkhatakits', attributes: ['id', 'anun', 'azganun'] },
         ],
       });
-      return pataskhan.status(201).json({ hajalutyun: true, tvyalner: tiketTvyalnerKhmbagrov });
-    } catch (skhalt) {
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+      return pataskhan.status(201).json({ հաջողություն: true, tvyalner: tiketTvyalnerKhmbagrov });
+    } catch (սխալ) {
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
   pataskhan.setHeader('Allow', ['GET', 'POST']);
-  return pataskhan.status(405).json({ hajalutyun: false, skhalt: `Մեթոդը ${harc.method} թույլատրված չէ` });
+  return pataskhan.status(405).json({ հաջողություն: false, սխալ: `Մեթոդը ${harc.method} թույլատրված չէ` });
 }

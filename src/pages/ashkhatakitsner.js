@@ -1,4 +1,4 @@
-// Ashkhatakitsner — Ashkhatakitsneri Karavarum (Employees Management)
+// Աշխատակիցներ — Ashkhatakitsneri Karavarum (Employees Management)
 import { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
 import AshkhatakitsModal from '../components/AshkhatakitsModal';
@@ -16,7 +16,7 @@ export default function AshkhatakitsneriKaravarum() {
   const [jnjumBarcracumKa, setJnjumBarcracumKa] = useState(false);
   const [toast, setToast] = useState(null);
 
-  const tsnuytsToast = useCallback((msg, tesak = 'hajalutyun') => {
+  const tsnuytsToast = useCallback((msg, tesak = 'հաջողություն') => {
     setToast({ haghordagutyun: msg, tesak });
     setTimeout(() => setToast(null), 3500);
   }, []);
@@ -26,9 +26,9 @@ export default function AshkhatakitsneriKaravarum() {
     try {
       const res = await fetch('/api/ashkhatakitsner');
       const tvyalner = await res.json();
-      if (tvyalner.hajalutyun) setBololAshkhatakitsner(tvyalner.tvyalner);
+      if (tvyalner.հաջողություն) setBololAshkhatakitsner(tvyalner.tvyalner);
     } catch (e) {
-      tsnuytsToast('Ashkhatakitsner berelis skhalt', 'skhalt');
+      tsnuytsToast('Աշխատակիցներ բերելիս սխալ', 'սխալ');
     } finally {
       setBarcracumKa(false);
     }
@@ -41,8 +41,8 @@ export default function AshkhatakitsneriKaravarum() {
     const url = xmbagrvogAshkhatakits ? `/api/ashkhatakitsner/${xmbagrvogAshkhatakits.id}` : '/api/ashkhatakitsner';
     const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dzev) });
     const tvyalner = await res.json();
-    if (!tvyalner.hajalutyun) throw new Error(tvyalner.skhalt);
-    tsnuytsToast(xmbagrvogAshkhatakits ? 'Ashkhatakits xmbagrvets' : 'Nor ashkhatakits steghtsvel');
+    if (!tvyalner.հաջողություն) throw new Error(tvyalner.սխալ);
+    tsnuytsToast(xmbagrvogAshkhatakits ? 'Աշխատակիցը խմբագրվեց' : 'Նոր աշխատակից ստեղծվեց');
     bererAshkhatakitsner();
   };
 
@@ -51,12 +51,12 @@ export default function AshkhatakitsneriKaravarum() {
     try {
       const res = await fetch(`/api/ashkhatakitsner/${jnjvogId}`, { method: 'DELETE' });
       const tvyalner = await res.json();
-      if (!tvyalner.hajalutyun) throw new Error(tvyalner.skhalt);
-      tsnuytsToast('Ashkhatakits jnjvel');
+      if (!tvyalner.հաջողություն) throw new Error(tvyalner.սխալ);
+      tsnuytsToast('Աշխատակիցը ջնջվեց');
       setJnjelModalBatsKa(false);
       bererAshkhatakitsner();
     } catch (e) {
-      tsnuytsToast(e.message || 'Jnjelu skhalt', 'skhalt');
+      tsnuytsToast(e.message || 'Ջնջելու սխալ', 'սխալ');
     } finally {
       setJnjumBarcracumKa(false);
     }
@@ -71,48 +71,48 @@ export default function AshkhatakitsneriKaravarum() {
   return (
     <>
       <Head>
-        <title>Ashkhatakitsner — Help Desk</title>
-        <meta name="description" content="Ashkhatakitsneri karavarum" />
+        <title>Աշխատակիցներ — Աջակցության Կենտրոն</title>
+        <meta name="description" content="Աշխատակիցների կառավարում" />
       </Head>
       <main className="hastsumnayin-kartik">
         <div className="ejhakutyunayin-bnagir">
           <div>
-            <h1 className="ejhakutyunayin-anagir">👨‍💼 Ashkhatakitsner</h1>
-            <p className="ejhakutyunayin-nkaragrutyun">{bololAshkhatakitsner.length} ashkhatakits grvagrvats e hamakargum</p>
+            <h1 className="ejhakutyunayin-anagir">👨‍💼 Աշխատակիցներ</h1>
+            <p className="ejhakutyunayin-nkaragrutyun">{bololAshkhatakitsner.length} աշխատակից գրանցված է համակարգում</p>
           </div>
           <button className="kochumn-knop hsnakan-knop" onClick={() => { setXmbagrvogAshkhatakits(null); setModalBatsKa(true); }} id="steghcel-nor-ashkhatakits">
-            ✨ Nor Ashkhatakits
+            ✨ Նոր Աշխատակից
           </button>
         </div>
 
         <div className="kndurutyun-bak">
           <div className="pretrutyan-muts-bak" style={{ flex: 2 }}>
             <span className="pretrutyan-nshani">🔍</span>
-            <input className="pretrutyan-muts" placeholder="Vorоnel anun, bakhum..." value={pretrutyunArarkogh}
+            <input className="pretrutyan-muts" placeholder="Որոնել անուն, բաժին..." value={pretrutyunArarkogh}
               onChange={(e) => setPretrutyunArarkogh(e.target.value)} id="ash-pretrutyun" />
           </div>
           <select className="dzevakert-mintchev" style={{ minWidth: 160 }} value={aktivZtrel}
             onChange={(e) => setAktivZtrel(e.target.value)} id="aktiv-ztrel">
-            <option value="">Bolor Vichakner</option>
-            <option value="true">✅ Aktiv</option>
-            <option value="false">❌ Voraktiv</option>
+            <option value="">Բոլոր Վիճակները</option>
+            <option value="true">✅ Ակտիվ</option>
+            <option value="false">❌ Ոչ ակտիվ</option>
           </select>
         </div>
 
         <div className="ashkhatanoc-bak">
           {barcracumKa ? (
-            <div className="barcracum-vichak"><div className="barcracum-shrjanag" /><span>Bercvum e...</span></div>
+            <div className="barcracum-vichak"><div className="barcracum-shrjanag" /><span>Բեռնվում է...</span></div>
           ) : zarrkvats.length === 0 ? (
             <div className="datark-vichak">
               <div className="datark-nshani">👨‍💼</div>
-              <div className="datark-anagir">Ashkhatakitsner chkan</div>
+              <div className="datark-anagir">Աշխատակիցներ չկան</div>
             </div>
           ) : (
             <table className="ashkhatanoc-zarmik" id="ashkhatakitsner-zavarak">
               <thead>
                 <tr>
-                  <th>#</th><th>Anun Azganun</th><th>Bakhum</th><th>Pashton</th>
-                  <th>El. Hasce</th><th>Herakhos</th><th>Vichak</th><th>Gortsolutyunner</th>
+                  <th>#</th><th>Անուն Ազգանուն</th><th>Բաժին</th><th>Պաշտոն</th>
+                  <th>Էլ. Հասցե</th><th>Հեռախոս</th><th>Վիճակ</th><th>Գործողություններ</th>
                 </tr>
               </thead>
               <tbody>
@@ -131,7 +131,7 @@ export default function AshkhatakitsneriKaravarum() {
                     <td style={{ color: '#94a3b8' }}>{ash.pashton || '—'}</td>
                     <td style={{ color: '#94a3b8', fontSize: '0.85rem' }}>{ash.elektronerayin_hasce}</td>
                     <td style={{ color: '#94a3b8' }}>{ash.herakhosahamer || '—'}</td>
-                    <td><span className={`petakan-nshani ${ash.aktiv ? 'aktiv-nshani' : 'voktiv-nshani'}`}>{ash.aktiv ? '✅ Aktiv' : '❌ Voraktiv'}</span></td>
+                    <td><span className={`petakan-nshani ${ash.aktiv ? 'aktiv-nshani' : 'voktiv-nshani'}`}>{ash.aktiv ? '✅ Ակտիվ' : '❌ Ոչ ակտիվ'}</span></td>
                     <td>
                       <div className="gortsolutyunneri-shor">
                         <button className="kochumn-knop tarmarkutyan-knop patan-knop" onClick={() => { setXmbagrvogAshkhatakits(ash); setModalBatsKa(true); }} id={`xmbagrel-ash-${ash.id}`}>✏️</button>
@@ -149,12 +149,12 @@ export default function AshkhatakitsneriKaravarum() {
       <AshkhatakitsModal batsKa={modalBatsKa} vercnel={() => { setModalBatsKa(false); setXmbagrvogAshkhatakits(null); }}
         xmbagrvogAshkhatakits={xmbagrvogAshkhatakits} pahanel={pahanelAshkhatakits} />
       <DeleteModal batsKa={jnjelModalBatsKa} vercnel={() => setJnjelModalBatsKa(false)}
-        anagir="Vstahe՞q, vor uccum eq jnjel ayd ashkhatakitsin?"
+        anagir="Վստա՞հ եք, որ ուզում եք ջնջել այս աշխատակցին։"
         hashtvarel={hashtvarel} barcracumKa={jnjumBarcracumKa} />
       {toast && (
         <div className="toast-zanazan">
           <div className={`toast-bak ${toast.tesak}`}>
-            <span>{toast.tesak === 'hajalutyun' ? '✅' : '❌'}</span>
+            <span>{toast.tesak === 'հաջողություն' ? '✅' : '❌'}</span>
             <span style={{ fontSize: '0.9rem' }}>{toast.haghordagutyun}</span>
           </div>
         </div>

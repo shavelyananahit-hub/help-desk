@@ -4,12 +4,12 @@ import Head from 'next/head';
 import TsanusatsurnModal from '../components/TsanusatsurnModal';
 import DeleteModal from '../components/DeleteModal';
 
-const tesakNshanner = { 'Teghekutyun': 'ℹ️', 'Zgushatsumn': '⚠️', 'Skhalt': '❌', 'Hajoghuthyun': '✅' };
+const tesakNshanner = { 'Տեղեկություն': 'ℹ️', 'Զգուշացում': '⚠️', 'Սխալ': '❌', 'Հաջողություն': '✅' };
 const tesakGuyner = {
-  'Teghekutyun': { bg: 'rgba(56,189,248,0.15)', color: '#38bdf8', border: 'rgba(56,189,248,0.3)' },
-  'Zgushatsumn': { bg: 'rgba(245,158,11,0.15)', color: '#f59e0b', border: 'rgba(245,158,11,0.3)' },
-  'Skhalt': { bg: 'rgba(244,63,94,0.15)', color: '#f43f5e', border: 'rgba(244,63,94,0.3)' },
-  'Hajoghuthyun': { bg: 'rgba(16,185,129,0.15)', color: '#10b981', border: 'rgba(16,185,129,0.3)' },
+  'Տեղեկություն': { bg: 'rgba(56,189,248,0.15)', color: '#38bdf8', border: 'rgba(56,189,248,0.3)' },
+  'Զգուշացում': { bg: 'rgba(245,158,11,0.15)', color: '#f59e0b', border: 'rgba(245,158,11,0.3)' },
+  'Սխալ': { bg: 'rgba(244,63,94,0.15)', color: '#f43f5e', border: 'rgba(244,63,94,0.3)' },
+  'Հաջողություն': { bg: 'rgba(16,185,129,0.15)', color: '#10b981', border: 'rgba(16,185,129,0.3)' },
 };
 
 export default function TsanusatsurnneriKaravarum() {
@@ -25,7 +25,7 @@ export default function TsanusatsurnneriKaravarum() {
   const [jnjumBarcracumKa, setJnjumBarcracumKa] = useState(false);
   const [toast, setToast] = useState(null);
 
-  const tsnuytsToast = useCallback((msg, tesak = 'hajalutyun') => {
+  const tsnuytsToast = useCallback((msg, tesak = 'հաջողություն') => {
     setToast({ haghordagutyun: msg, tesak });
     setTimeout(() => setToast(null), 3500);
   }, []);
@@ -38,11 +38,11 @@ export default function TsanusatsurnneriKaravarum() {
         fetch('/api/ogtaterner').then(r => r.json()),
         fetch('/api/tiketer').then(r => r.json()),
       ]);
-      if (tsP.hajalutyun) setBololTsanusatsurnner(tsP.tvyalner);
-      if (ogtP.hajalutyun) setOgtaterneр(ogtP.tvyalner);
-      if (tikP.hajalutyun) setTiketer(tikP.tvyalner);
+      if (tsP.հաջողություն) setBololTsanusatsurnner(tsP.tvyalner);
+      if (ogtP.հաջողություն) setOgtaterneр(ogtP.tvyalner);
+      if (tikP.հաջողություն) setTiketer(tikP.tvyalner);
     } catch (e) {
-      tsnuytsToast('Tvyalner berelis skhalt', 'skhalt');
+      tsnuytsToast('Տվյալներ բերելիս սխալ', 'սխալ');
     } finally {
       setBarcracumKa(false);
     }
@@ -55,8 +55,8 @@ export default function TsanusatsurnneriKaravarum() {
     const url = xmbagrvogTs ? `/api/tsanusatsurnner/${xmbagrvogTs.id}` : '/api/tsanusatsurnner';
     const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dzev) });
     const tvyalner = await res.json();
-    if (!tvyalner.hajalutyun) throw new Error(tvyalner.skhalt);
-    tsnuytsToast(xmbagrvogTs ? 'Tsanusatsurn xmbagrvets' : 'Nor tsanusatsurn steghtsvel');
+    if (!tvyalner.հաջողություն) throw new Error(tvyalner.սխալ);
+    tsnuytsToast(xmbagrvogTs ? 'Ծանուցումը խմբագրվեց' : 'Նոր ծանուցում ստեղծվեց');
     bererTvyalner();
   };
 
@@ -68,12 +68,12 @@ export default function TsanusatsurnneriKaravarum() {
         body: JSON.stringify({ kardatsvatsd: true }),
       });
       const tvyalner = await res.json();
-      if (tvyalner.hajalutyun) {
+      if (tvyalner.հաջողություն) {
         setBololTsanusatsurnner(prev => prev.map(ts => ts.id === id ? { ...ts, kardatsvatsd: true } : ts));
-        tsnuytsToast('Tsanusatsurn kardatsvatsvats nshanakvets');
+        tsnuytsToast('Ծանուցումը նշանակվեց կարդացված');
       }
     } catch (e) {
-      tsnuytsToast('Skhalt', 'skhalt');
+      tsnuytsToast('Սխալ', 'սխալ');
     }
   };
 
@@ -82,12 +82,12 @@ export default function TsanusatsurnneriKaravarum() {
     try {
       const res = await fetch(`/api/tsanusatsurnner/${jnjvogId}`, { method: 'DELETE' });
       const tvyalner = await res.json();
-      if (!tvyalner.hajalutyun) throw new Error(tvyalner.skhalt);
-      tsnuytsToast('Tsanusatsurn jnjvel');
+      if (!tvyalner.հաջողություն) throw new Error(tvyalner.սխալ);
+      tsnuytsToast('Ծանուցումը ջնջվեց');
       setJnjelModalBatsKa(false);
       bererTvyalner();
     } catch (e) {
-      tsnuytsToast(e.message || 'Jnjelu skhalt', 'skhalt');
+      tsnuytsToast(e.message || 'Ջնջելու սխալ', 'սխալ');
     } finally {
       setJnjumBarcracumKa(false);
     }
@@ -104,47 +104,47 @@ export default function TsanusatsurnneriKaravarum() {
   return (
     <>
       <Head>
-        <title>Tsanusatsurnner — Help Desk</title>
-        <meta name="description" content="Tsanusatsurnneri karavarum" />
+        <title>Ծանուցումներ — Աջակցության Կենտրոն</title>
+        <meta name="description" content="Ծանուցումների կառավարում" />
       </Head>
       <main className="hastsumnayin-kartik">
         <div className="ejhakutyunayin-bnagir">
           <div>
             <h1 className="ejhakutyunayin-anagir">
-              🔔 Tsanusatsurnner
+              🔔 Ծանուցումներ
               {akardatsvatsdz > 0 && (
                 <span style={{ marginLeft: 12, fontSize: '1rem', background: '#f43f5e', color: '#fff', padding: '2px 10px', borderRadius: 999, fontWeight: 700 }}>
                   {akardatsvatsdz} nor
                 </span>
               )}
             </h1>
-            <p className="ejhakutyunayin-nkaragrutyun">{bololTsanusatsurnner.length} tsanusatsurn, {akardatsvatsdz} akardatsvatsvats</p>
+            <p className="ejhakutyunayin-nkaragrutyun">{bololTsanusatsurnner.length} ծանուցում, {akardatsvatsdz} չկարդացված</p>
           </div>
           <button className="kochumn-knop hsnakan-knop" onClick={() => { setXmbagrvogTs(null); setModalBatsKa(true); }} id="steghcel-nor-tsanusatsurn">
-            ✨ Nor Tsanusatsurn
+            ✨ Նոր Ծանուցում
           </button>
         </div>
 
         <div className="kndurutyun-bak">
           <select className="dzevakert-mintchev" style={{ minWidth: 200 }} value={kardatsvatsdzZtrel}
             onChange={(e) => setKardatsvatsdzZtrel(e.target.value)} id="kardatsvatsdz-ztrel">
-            <option value="">Bolor Tsanusatsurnner</option>
-            <option value="false">📭 Akardatsvatsvatsner</option>
-            <option value="true">📬 Kardatsvatsvatsdner</option>
+            <option value="">Բոլոր Ծանուցումները</option>
+            <option value="false">📭 Չկարդացվածներ</option>
+            <option value="true">📬 Կարդացվածներ</option>
           </select>
         </div>
 
         <div className="tsanusatsurn-shrjar">
           {barcracumKa ? (
-            <div className="barcracum-vichak"><div className="barcracum-shrjanag" /><span>Bercvum e...</span></div>
+            <div className="barcracum-vichak"><div className="barcracum-shrjanag" /><span>Բեռնվում է...</span></div>
           ) : zarrkvats.length === 0 ? (
             <div className="datark-vichak">
               <div className="datark-nshani">🔔</div>
-              <div className="datark-anagir">Tsanusatsurnner chkan</div>
+              <div className="datark-anagir">Ծանուցումներ չկան</div>
             </div>
           ) : (
             zarrkvats.map((ts) => {
-              const guyn = tesakGuyner[ts.tesak] || tesakGuyner['Teghekutyun'];
+              const guyn = tesakGuyner[ts.tesak] || tesakGuyner['Տեղեկություն'];
               return (
                 <div key={ts.id} className={`tsanusatsurn-bak ${ts.kardatsvatsd ? 'kardatsvatsd' : 'nekardatsvatsd'}`}
                   style={{ borderColor: ts.kardatsvatsd ? 'rgba(255,255,255,0.1)' : guyn.border }}>
@@ -160,17 +160,17 @@ export default function TsanusatsurnneriKaravarum() {
                       {ts.stacoghogtater && <span>👤 {ts.stacoghogtater.anun} {ts.stacoghogtater.azganun}</span>}
                       {ts.kapvatstiket && <span>🎫 #{ts.kapvatstiket.id} {ts.kapvatstiket.vernagir}</span>}
                       <span style={{ color: guyn.color }}>{ts.tesak}</span>
-                      <span>{ts.kardatsvatsd ? '📬 Kardatsvatsvats' : '📭 Akardatsvatsvats'}</span>
+                      <span>{ts.kardatsvatsd ? '📬 Կարդացված' : '📭 Չկարդացված'}</span>
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
                     {!ts.kardatsvatsd && (
-                      <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Nshanel kardatsvatsvats"
+                      <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Նշանակել որպես կարդացված"
                         onClick={() => nshanakelKardatsvatsdz(ts.id)} id={`kard-ts-${ts.id}`}>✓</button>
                     )}
-                    <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Xmbagrel"
+                    <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Խմբագրել"
                       onClick={() => { setXmbagrvogTs(ts); setModalBatsKa(true); }} id={`xmbagrel-ts-${ts.id}`}>✏️</button>
-                    <button className="kochumn-knop jnjelu-knop patan-knop" title="Jnjel"
+                    <button className="kochumn-knop jnjelu-knop patan-knop" title="Ջնջել"
                       onClick={() => { setJnjvogId(ts.id); setJnjelModalBatsKa(true); }} id={`jnjel-ts-${ts.id}`}>🗑️</button>
                   </div>
                 </div>
@@ -183,12 +183,12 @@ export default function TsanusatsurnneriKaravarum() {
       <TsanusatsurnModal batsKa={modalBatsKa} vercnel={() => { setModalBatsKa(false); setXmbagrvogTs(null); }}
         xmbagrvogTsanusatsurn={xmbagrvogTs} pahanel={pahanelTs} ogtaterneр={ogtaterneр} tiketer={tiketer} />
       <DeleteModal batsKa={jnjelModalBatsKa} vercnel={() => setJnjelModalBatsKa(false)}
-        anagir="Vstahe՞q, vor uccum eq jnjel ayd tsanusatsurn?"
+        anagir="Վստա՞հ եք, որ ուզում եք ջնջել այս ծանուցումը։"
         hashtvarel={hashtvarel} barcracumKa={jnjumBarcracumKa} />
       {toast && (
         <div className="toast-zanazan">
           <div className={`toast-bak ${toast.tesak}`}>
-            <span>{toast.tesak === 'hajalutyun' ? '✅' : '❌'}</span>
+            <span>{toast.tesak === 'հաջողություն' ? '✅' : '❌'}</span>
             <span style={{ fontSize: '0.9rem' }}>{toast.haghordagutyun}</span>
           </div>
         </div>

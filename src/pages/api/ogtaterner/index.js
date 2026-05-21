@@ -22,12 +22,12 @@ export default async function ashkhatakogh(harc, pataskhan) {
         order: [['created_at', 'DESC']],
       });
       return pataskhan.status(200).json({
-        hajalutyun: true,
+        հաջողություն: true,
         tvyalner: bololOgtaterneр,
         qanak: bololOgtaterneр.length,
       });
-    } catch (skhalt) {
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+    } catch (սխալ) {
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
@@ -38,8 +38,8 @@ export default async function ashkhatakogh(harc, pataskhan) {
 
       if (!anun || !azganun || !elektronerayin_hasce || !gtnayin_bard) {
         return pataskhan.status(400).json({
-          hajalutyun: false,
-          skhalt: 'Անհրաժեշտ դաշտերը լրացված չեն',
+          հաջողություն: false,
+          սխալ: 'Անհրաժեշտ դաշտերը լրացված չեն',
         });
       }
 
@@ -55,15 +55,15 @@ export default async function ashkhatakogh(harc, pataskhan) {
       });
 
       const { gtnayin_bard: _, ...ogtaterArevantsKunqov } = norOgtater.toJSON();
-      return pataskhan.status(201).json({ hajalutyun: true, tvyalner: ogtaterArevantsKunqov });
-    } catch (skhalt) {
-      if (skhalt.name === 'SequelizeUniqueConstraintError') {
-        return pataskhan.status(409).json({ hajalutyun: false, skhalt: 'Էլ. հասցեն արդեն գրանցված է' });
+      return pataskhan.status(201).json({ հաջողություն: true, tvyalner: ogtaterArevantsKunqov });
+    } catch (սխալ) {
+      if (սխալ.name === 'SequelizeUniqueConstraintError') {
+        return pataskhan.status(409).json({ հաջողություն: false, սխալ: 'Էլ. հասցեն արդեն գրանցված է' });
       }
-      return pataskhan.status(500).json({ hajalutyun: false, skhalt: skhalt.message });
+      return pataskhan.status(500).json({ հաջողություն: false, սխալ: սխալ.message });
     }
   }
 
   pataskhan.setHeader('Allow', ['GET', 'POST']);
-  return pataskhan.status(405).json({ hajalutyun: false, skhalt: `Մեթոդը ${harc.method} թույլատրված չէ` });
+  return pataskhan.status(405).json({ հաջողություն: false, սխալ: `Մեթոդը ${harc.method} թույլատրված չէ` });
 }

@@ -4,10 +4,10 @@ import Head from 'next/head';
 import TiketModal from '../components/TiketModal';
 import DeleteModal from '../components/DeleteModal';
 
-const kargavichakNshanner = { 'Бас': '🟢', 'Bас': '🟢', 'Ntsaghik': '🔵', 'Pakvats': '⚫' };
-const kargnishNshanner = { 'Ĉatsr': '🟢', 'Ìijin': '🟡', 'Bardzr': '🔴' };
-const kargavichakDasakargum = { 'Бас': 'bac', 'Bас': 'bac', 'Ntsaghik': 'ntsaghik', 'Pakvats': 'pakvats' };
-const kargnishDasakargum = { 'Ĉatsr': 'tsatsr', 'Ìijin': 'mijin', 'Bardzr': 'bardzr' };
+const kargavichakNshanner = { 'Բաց': '🟢', 'Բաց': '🟢', 'Ընթացիկ': '🔵', 'Փակված': '⚫' };
+const kargnishNshanner = { 'Ցածր': '🟢', 'Միջին': '🟡', 'Բարձր': '🔴' };
+const kargavichakDasakargum = { 'Բաց': 'bac', 'Բաց': 'bac', 'Ընթացիկ': 'ntsaghik', 'Փակված': 'pakvats' };
+const kargnishDasakargum = { 'Ցածր': 'tsatsr', 'Միջին': 'mijin', 'Բարձր': 'bardzr' };
 
 export default function TiketneriKaravarum() {
   const [bololTiketer, setBololTiketer] = useState([]);
@@ -24,7 +24,7 @@ export default function TiketneriKaravarum() {
   const [jnjumBarcracumKa, setJnjumBarcracumKa] = useState(false);
   const [toast, setToast] = useState(null);
 
-  const tsnuytsToast = useCallback((haghordagutyun, tesak = 'hajalutyun') => {
+  const tsnuytsToast = useCallback((haghordagutyun, tesak = 'հաջողություն') => {
     setToast({ haghordagutyun, tesak });
     setTimeout(() => setToast(null), 3500);
   }, []);
@@ -37,11 +37,11 @@ export default function TiketneriKaravarum() {
         fetch('/api/ogtaterner').then(r => r.json()),
         fetch('/api/ashkhatakitsner').then(r => r.json()),
       ]);
-      if (tiketP.hajalutyun) setBololTiketer(tiketP.tvyalner);
-      if (ogtaterP.hajalutyun) setOgtaterneр(ogtaterP.tvyalner);
-      if (ashP.hajalutyun) setAshkhatakitsner(ashP.tvyalner);
+      if (tiketP.հաջողություն) setBololTiketer(tiketP.tvyalner);
+      if (ogtaterP.հաջողություն) setOgtaterneр(ogtaterP.tvyalner);
+      if (ashP.հաջողություն) setAshkhatakitsner(ashP.tvyalner);
     } catch (e) {
-      tsnuytsToast('Tvyalner berelis skhalt', 'skhalt');
+      tsnuytsToast('Տվյալներ բերելիս սխալ', 'սխալ');
     } finally {
       setBarcracumKa(false);
     }
@@ -54,8 +54,8 @@ export default function TiketneriKaravarum() {
     const url = xmbagrvogTiket ? `/api/tiketer/${xmbagrvogTiket.id}` : '/api/tiketer';
     const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dzev) });
     const tvyalner = await res.json();
-    if (!tvyalner.hajalutyun) throw new Error(tvyalner.skhalt);
-    tsnuytsToast(xmbagrvogTiket ? 'Tiket-y hajolothabar xmbagrvets' : 'Nor tiket hajolothabar steghtsvel');
+    if (!tvyalner.հաջողություն) throw new Error(tvyalner.սխալ);
+    tsnuytsToast(xmbagrvogTiket ? 'Տոմսը հաջողությամբ խմբագրվեց' : 'Նոր տոմս հաջողությամբ ստեղծվեց');
     bererTvyalner();
   };
 
@@ -64,12 +64,12 @@ export default function TiketneriKaravarum() {
     try {
       const res = await fetch(`/api/tiketer/${jnjvogTiketId}`, { method: 'DELETE' });
       const tvyalner = await res.json();
-      if (!tvyalner.hajalutyun) throw new Error(tvyalner.skhalt);
-      tsnuytsToast('Tiket-y hajolothabar jnjvel');
+      if (!tvyalner.հաջողություն) throw new Error(tvyalner.սխալ);
+      tsnuytsToast('Տոմսը հաջողությամբ ջնջվեց');
       setJnjelModalBatsKa(false);
       bererTvyalner();
     } catch (e) {
-      tsnuytsToast(e.message || 'Jnjelu skhalt', 'skhalt');
+      tsnuytsToast(e.message || 'Ջնջելու սխալ', 'սխալ');
     } finally {
       setJnjumBarcracumKa(false);
     }
@@ -85,18 +85,18 @@ export default function TiketneriKaravarum() {
   return (
     <>
       <Head>
-        <title>Tiketer — Help Desk</title>
-        <meta name="description" content="Tiketneri karavarum" />
+        <title>Տոմսեր — Աջակցության Կենտրոն</title>
+        <meta name="description" content="Տոմսերի կառավարում" />
       </Head>
 
       <main className="hastsumnayin-kartik">
         <div className="ejhakutyunayin-bnagir">
           <div>
-            <h1 className="ejhakutyunayin-anagir">🎫 Tiketer</h1>
-            <p className="ejhakutyunayin-nkaragrutyun">{bololTiketer.length} tiket grvagrvats e hamakargum</p>
+            <h1 className="ejhakutyunayin-anagir">🎫 Տոմսեր</h1>
+            <p className="ejhakutyunayin-nkaragrutyun">{bololTiketer.length} տոմս գրանցված է համակարգում</p>
           </div>
           <button className="kochumn-knop hsnakan-knop" onClick={() => { setXmbagrvogTiket(null); setModalBatsKa(true); }} id="steghcel-nor-tiket">
-            ✨ Nor Tiket
+            ✨ Նոր Տոմս
           </button>
         </div>
 
@@ -104,46 +104,46 @@ export default function TiketneriKaravarum() {
         <div className="kndurutyun-bak">
           <div className="pretrutyan-muts-bak" style={{ flex: 2 }}>
             <span className="pretrutyan-nshani">🔍</span>
-            <input className="pretrutyan-muts" type="text" placeholder="Vorоnel vernagir, nkaragrutyun..."
+            <input className="pretrutyan-muts" type="text" placeholder="Որոնել վերնագիր, նկարագրություն..."
               value={pretrutyunArarkogh} onChange={(e) => setPretrutyunArarkogh(e.target.value)} id="tiket-pretrutyun" />
           </div>
           <select className="dzevakert-mintchev" style={{ minWidth: 160 }} value={kargavichakZtrel}
             onChange={(e) => setKargavichakZtrel(e.target.value)} id="kargavichak-ztrel">
-            <option value="">Bolor Kargavichakner</option>
-            <option value="Бас">🟢 Бас</option>
-            <option value="Ntsaghik">🔵 Ntsaghik</option>
-            <option value="Pakvats">⚫ Pakvats</option>
+            <option value="">Բոլոր Կարգավիճակները</option>
+            <option value="Բաց">🟢 Բաց</option>
+            <option value="Ընթացիկ">🔵 Ընթացիկ</option>
+            <option value="Փակված">⚫ Փակված</option>
           </select>
           <select className="dzevakert-mintchev" style={{ minWidth: 140 }} value={kargnishZtrel}
             onChange={(e) => setKargnishZtrel(e.target.value)} id="kargnish-ztrel">
-            <option value="">Bolor Kargnishner</option>
-            <option value="Ĉatsr">🟢 Ĉatsr</option>
-            <option value="Ìijin">🟡 Ìijin</option>
-            <option value="Bardzr">🔴 Bardzr</option>
+            <option value="">Բոլոր Կարգերը</option>
+            <option value="Ցածր">🟢 Ցածր</option>
+            <option value="Միջին">🟡 Միջին</option>
+            <option value="Բարձր">🔴 Բարձր</option>
           </select>
         </div>
 
         <div className="ashkhatanoc-bak">
           {barcracumKa ? (
-            <div className="barcracum-vichak"><div className="barcracum-shrjanag" /><span>Bercvum e...</span></div>
+            <div className="barcracum-vichak"><div className="barcracum-shrjanag" /><span>Բեռնվում է...</span></div>
           ) : zarrkvatsOgtaterneр.length === 0 ? (
             <div className="datark-vichak">
               <div className="datark-nshani">🎫</div>
-              <div className="datark-anagir">Tiketer chkan</div>
-              <div className="datark-nkaragrutyun">Steghcel nor tiket bnagrov</div>
+              <div className="datark-anagir">Տոմսեր չկան</div>
+              <div className="datark-nkaragrutyun">Ստեղծել նոր տոմս բնագրով</div>
             </div>
           ) : (
             <table className="ashkhatanoc-zarmik" id="tiketer-zavarak">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Vernagir</th>
-                  <th>Kargnish</th>
-                  <th>Kargavichak</th>
-                  <th>Kategoria</th>
-                  <th>Steghtsoghogtater</th>
-                  <th>Handnvats</th>
-                  <th>Gortsolutyunner</th>
+                  <th>Վերնագիր</th>
+                  <th>Կարգ</th>
+                  <th>Կարգավիճակ</th>
+                  <th>Կատեգորիա</th>
+                  <th>Ստեղծող օգտատեր</th>
+                  <th>Հանձնված է</th>
+                  <th>Գործողություններ</th>
                 </tr>
               </thead>
               <tbody>
@@ -161,13 +161,13 @@ export default function TiketneriKaravarum() {
                       {tiket.steghtsoghogtater ? `${tiket.steghtsoghogtater.anun} ${tiket.steghtsoghogtater.azganun}` : '—'}
                     </td>
                     <td style={{ color: '#94a3b8', fontSize: '0.85rem' }}>
-                      {tiket.handnvatsAshkhatakits ? `${tiket.handnvatsAshkhatakits.anun} ${tiket.handnvatsAshkhatakits.azganun}` : <span style={{ color: '#f59e0b' }}>Chhandnvats</span>}
+                      {tiket.handnvatsAshkhatakits ? `${tiket.handnvatsAshkhatakits.anun} ${tiket.handnvatsAshkhatakits.azganun}` : <span style={{ color: '#f59e0b' }}>Չհանձնված</span>}
                     </td>
                     <td>
                       <div className="gortsolutyunneri-shor">
-                        <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Xmbagrel"
+                        <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Խմբագրել"
                           onClick={() => { setXmbagrvogTiket(tiket); setModalBatsKa(true); }} id={`xmbagrel-tiket-${tiket.id}`}>✏️</button>
-                        <button className="kochumn-knop jnjelu-knop patan-knop" title="Jnjel"
+                        <button className="kochumn-knop jnjelu-knop patan-knop" title="Ջնջել"
                           onClick={() => { setJnjvogTiketId(tiket.id); setJnjelModalBatsKa(true); }} id={`jnjel-tiket-${tiket.id}`}>🗑️</button>
                       </div>
                     </td>
@@ -184,14 +184,14 @@ export default function TiketneriKaravarum() {
         ogtaterneр={ogtaterneр} ashkhatakitsner={ashkhatakitsner} />
 
       <DeleteModal batsKa={jnjelModalBatsKa} vercnel={() => setJnjelModalBatsKa(false)}
-        anagir="Вstahе՞q, vor uccum eq jnjel аyd tikety?"
-        nkaragrutyun="Tiket-y jnjelu depqum аynkaran tvalyalnery kkorcanven"
+        anagir="Վստա՞հ եք, որ ուզում եք ջնջել այս տոմսը։"
+        nkaragrutyun="Տոմսը ջնջելու դեպքում տվյալները կկորչեն"
         hashtvarel={hashtvarel} barcracumKa={jnjumBarcracumKa} />
 
       {toast && (
         <div className="toast-zanazan">
           <div className={`toast-bak ${toast.tesak}`}>
-            <span>{toast.tesak === 'hajalutyun' ? '✅' : '❌'}</span>
+            <span>{toast.tesak === 'հաջողություն' ? '✅' : '❌'}</span>
             <span style={{ fontSize: '0.9rem' }}>{toast.haghordagutyun}</span>
           </div>
         </div>

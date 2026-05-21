@@ -7,6 +7,7 @@
 
 /* ---- CSS Variables ---- */
 :root {
+
   --guyner-hsnakan: #0f0f1a;
   --guyner-kartik: #1a1a2e;
   --guyner-varchnyor: #16213e;
@@ -31,7 +32,9 @@
 }
 
 /* ---- Reset & Base ---- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -143,10 +146,21 @@ body {
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
 }
 
-.vichakagiri-bak.kanach::before { background: var(--kanach-haj); }
-.vichakagiri-bak.karmir::before { background: var(--karmir-skhalt); }
-.vichakagiri-bak.deghin::before { background: var(--deghin-zgushatsumn); }
-.vichakagiri-bak.kapuyt::before { background: var(--sheshtak-patki); }
+.vichakagiri-bak.kanach::before {
+  background: var(--kanach-haj);
+}
+
+.vichakagiri-bak.karmir::before {
+  background: var(--karmir-skhalt);
+}
+
+.vichakagiri-bak.deghin::before {
+  background: var(--deghin-zgushatsumn);
+}
+
+.vichakagiri-bak.kapuyt::before {
+  background: var(--sheshtak-patki);
+}
 
 .vichakagiri-hamara {
   font-size: 2.5rem;
@@ -219,17 +233,59 @@ body {
   letter-spacing: 0.03em;
 }
 
-.petakan-nshani.bac { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
-.petakan-nshani.ntsaghik { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
-.petakan-nshani.pakvats { background: rgba(148, 163, 184, 0.15); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.3); }
+.petakan-nshani.bac {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
 
-.kargnish-nshani.tsatsr { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
-.kargnish-nshani.mijin { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
-.kargnish-nshani.bardzr { background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.3); }
+.petakan-nshani.ntsaghik {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
 
-.der-nshani { background: rgba(108, 99, 255, 0.15); color: var(--sheshtak-bnagitseri); border: 1px solid rgba(108, 99, 255, 0.3); }
-.aktiv-nshani { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
-.voktiv-nshani { background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.3); }
+.petakan-nshani.pakvats {
+  background: rgba(148, 163, 184, 0.15);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.kargnish-nshani.tsatsr {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.kargnish-nshani.mijin {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.kargnish-nshani.bardzr {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.der-nshani {
+  background: rgba(108, 99, 255, 0.15);
+  color: var(--sheshtak-bnagitseri);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+}
+
+.aktiv-nshani {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.voktiv-nshani {
+  background: rgba(244, 63, 94, 0.15);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
 
 /* ---- Buttons ---- */
 .kochumn-knop {
@@ -332,8 +388,13 @@ body {
 }
 
 @keyframes modal-arka-nerkayal {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-barek {
@@ -349,8 +410,15 @@ body {
 }
 
 @keyframes modal-nerkayal {
-  from { opacity: 0; transform: scale(0.9) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .modal-vercnagrutyun {
@@ -526,7 +594,9 @@ body {
   box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
 }
 
-.pretrutyan-muts::placeholder { color: rgba(148, 163, 184, 0.5); }
+.pretrutyan-muts::placeholder {
+  color: rgba(148, 163, 184, 0.5);
+}
 
 /* ---- Notifications ---- */
 .tsanusatsurn-shrjar {
@@ -616,12 +686,24 @@ body {
 }
 
 @keyframes toast-nerkayal {
-  from { opacity: 0; transform: translateX(100%); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.toast-bak.hajalutyun { border-color: rgba(16, 185, 129, 0.5); }
-.toast-bak.skhalt { border-color: rgba(244, 63, 94, 0.5); }
+.toast-bak.hajalutyun {
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+.toast-bak.skhalt {
+  border-color: rgba(244, 63, 94, 0.5);
+}
 
 /* ---- Empty State ---- */
 .datark-vichak {
@@ -630,9 +712,21 @@ body {
   color: var(--magraguyn);
 }
 
-.datark-nshani { font-size: 4rem; margin-bottom: 16px; }
-.datark-anagir { font-size: 1.1rem; font-weight: 600; color: var(--spitaki-guyn); margin-bottom: 8px; }
-.datark-nkaragrutyun { font-size: 0.9rem; }
+.datark-nshani {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.datark-anagir {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--spitaki-guyn);
+  margin-bottom: 8px;
+}
+
+.datark-nkaragrutyun {
+  font-size: 0.9rem;
+}
 
 /* ---- Loading ---- */
 .barcracum-vichak {
@@ -655,24 +749,56 @@ body {
 }
 
 @keyframes barcracum {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ---- Scrollbar ---- */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
 
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
-  .hastsumnayin-kartik { padding: 90px 16px 32px; }
-  .ejhakutyunayin-anagir { font-size: 1.5rem; }
-  .dzevakert-shor { grid-template-columns: 1fr; }
-  .vichakagiri-vankuyk { grid-template-columns: repeat(2, 1fr); }
-  .ashkhatanoc-zarmik { display: block; overflow-x: auto; }
+  .hastsumnayin-kartik {
+    padding: 90px 16px 32px;
+  }
+
+  .ejhakutyunayin-anagir {
+    font-size: 1.5rem;
+  }
+
+  .dzevakert-shor {
+    grid-template-columns: 1fr;
+  }
+
+  .vichakagiri-vankuyk {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ashkhatanoc-zarmik {
+    display: block;
+    overflow-x: auto;
+  }
 }
 
 @media (max-width: 480px) {
-  .vichakagiri-vankuyk { grid-template-columns: 1fr; }
+  .vichakagiri-vankuyk {
+    grid-template-columns: 1fr;
+  }
 }

@@ -51,7 +51,8 @@ const Ogtater = sequelizeCors.define('Ogtater', {
     allowNull: false,
   },
 }, {
-  tableName: 'ogtaterneр',
+  schema: 'helpdesk',
+  tableName: 'ogtaterner',
   timestamps: true,
   underscored: true,
 });

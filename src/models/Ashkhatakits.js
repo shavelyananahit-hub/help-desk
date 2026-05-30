@@ -55,6 +55,7 @@ const Ashkhatakits = sequelizeCors.define('Ashkhatakits', {
     defaultValue: true,
   },
 }, {
+  schema: 'helpdesk',
   tableName: 'ashkhatakitsner',
   timestamps: true,
   underscored: true,

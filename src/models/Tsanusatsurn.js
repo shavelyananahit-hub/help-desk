@@ -33,7 +33,7 @@ const Tsanusatsurn = sequelizeCors.define('Tsanusatsurn', {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: 'ogtaterneр',
+      model: 'ogtaterner',
       key: 'id',
     },
   },
@@ -47,6 +47,7 @@ const Tsanusatsurn = sequelizeCors.define('Tsanusatsurn', {
     },
   },
 }, {
+  schema: 'helpdesk',
   tableName: 'tsanusatsurnner',
   timestamps: true,
   underscored: true,

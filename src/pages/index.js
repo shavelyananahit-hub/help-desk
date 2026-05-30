@@ -56,13 +56,13 @@ export default function Vahanak() {
   return (
     <>
       <Head>
-        <title>Վահանակ — Աջակցության Կենտրոնի Կառավարում</title>
-        <meta name="description" content="Աջակցության Կենտրոնի Կառավարման Համակարգ — Գլխավոր Վահանակ" />
+        <title>Գլխավոր էջ — Աջակցության Կենտրոնի Կառավարում</title>
+        <meta name="description" content="Աջակցության Կենտրոնի Կառավարման Համակարգ — Գլխավոր " />
       </Head>
       <main className="hastsumnayin-kartik">
         <div className="ejhakutyunayin-bnagir">
           <div>
-            <h1 className="ejhakutyunayin-anagir">📊 Վահանակ</h1>
+            <h1 className="ejhakutyunayin-anagir">📊 Գլխավոր էջ</h1>
             <p className="ejhakutyunayin-nkaragrutyun">Աջակցության Կենտրոնի Կառավարման Համակարգ — Գլխավոր</p>
           </div>
         </div>

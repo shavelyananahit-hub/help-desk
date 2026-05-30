@@ -3,11 +3,11 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // Աշխատակիցների սկզբնական տվյալները (Initial employees data)
-    await queryInterface.bulkInsert('ashkhatakitsner', [
+    //Աշխատակիցների սկզբնական տվյալները (Initial employees data)
+    await queryInterface.bulkInsert({ tableName: 'ashkhatakitsner', schema: 'helpdesk' }, [
       {
         anun: 'Կարեն',
-        azganun: 'Մkartchyan',
+        azganun: 'Մկրտչյան',
         bakhum: 'Տեղեկատվական Տեխնոլոգիաներ',
         pashton: 'Ավագ ծրագրավորող',
         elektronerayin_hasce: 'karen.mkrtchyan@helpdesk.am',
@@ -18,7 +18,7 @@ module.exports = {
       },
       {
         anun: 'Նարե',
-        azganun: 'Կarapetiank',
+        azganun: 'Կարապետյան',
         bakhum: 'Հաճախորդների Սպասարկում',
         pashton: 'Աջակցության Ղեկավար',
         elektronerayin_hasce: 'nare.karapetyan@helpdesk.am',
@@ -40,7 +40,7 @@ module.exports = {
       },
       {
         anun: 'Սոֆի',
-        azganun: 'Ղրիgorian',
+        azganun: 'Գրիգորյան',
         bakhum: 'Ցանց',
         pashton: 'Ցանցային Ճարտարագետ',
         elektronerayin_hasce: 'sofi.grigoryan@helpdesk.am',
@@ -53,6 +53,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('ashkhatakitsner', null, {});
+    await queryInterface.bulkDelete({ tableName: 'ashkhatakitsner', schema: 'helpdesk' }, null, {});
   },
 };

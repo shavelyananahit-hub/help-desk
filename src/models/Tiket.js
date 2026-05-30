@@ -44,7 +44,7 @@ const Tiket = sequelizeCors.define('Tiket', {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: 'ogtaterneр',
+      model: 'ogtaterner',
       key: 'id',
     },
   },
@@ -58,6 +58,7 @@ const Tiket = sequelizeCors.define('Tiket', {
     },
   },
 }, {
+  schema: 'helpdesk',
   tableName: 'tiketer',
   timestamps: true,
   underscored: true,

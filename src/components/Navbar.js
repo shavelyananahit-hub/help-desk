@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 // Նավիգացիայի կետեր (Navigation items)
 const navKeteр = [
-  { href: '/', anagir: 'Վահանակ', nshani: '📊', id: 'nav-vahanak' },
+  { href: '/', anagir: 'Գլխավոր էջ', nshani: '📊', id: 'nav-vahanak' },
   { href: '/ogtaterner', anagir: 'Օգտատերեր', nshani: '👥', id: 'nav-ogtaterner' },
   { href: '/tiketer', anagir: 'Տոմսեր', nshani: '🎫', id: 'nav-tiketer' },
   { href: '/ashkhatakitsner', anagir: 'Աշխատակիցներ', nshani: '👨‍💼', id: 'nav-ashkhatakitsner' },

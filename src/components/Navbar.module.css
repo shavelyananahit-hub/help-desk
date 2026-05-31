@@ -1,0 +1,142 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  background: rgba(15, 15, 26, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+.navbarKartik {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.navbarNshaniPink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.navbarNshaniNkar {
+  font-size: 1.6rem;
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.3));
+}
+.navbarAnagir {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.navbarAnagirHsnakan { color: #fdf2f8; }
+.navbarAnagirBnagitseri {
+  background: linear-gradient(135deg, #a855f7, #d946ef);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.navbarKapakner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.navbarKapal {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  position: relative;
+  white-space: nowrap;
+}
+.navbarKapal:hover {
+  color: #fdf2f8;
+  background: rgba(255, 255, 255, 0.08);
+}
+.navbarKapal.aktiv {
+  color: #fdf2f8;
+  background: rgba(168, 85, 247, 0.1);
+}
+.navbarKapal.aktiv::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(135deg, #a855f7, #d946ef);
+  border-radius: 999px;
+}
+.navbarKapalNshani { font-size: 1rem; }
+.tsanusatsurnHamaraNshani {
+  background: #f43f5e;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 999px;
+  min-width: 18px;
+  text-align: center;
+  line-height: 1.4;
+}
+.burgerKnop {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.burgerKnop span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #94a3b8;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.mobileMenyu {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 20px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 4px;
+}
+.mobileKapal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.mobileKapal:hover, .mobileKapal.aktiv {
+  color: #fdf2f8;
+  background: rgba(168, 85, 247, 0.08);
+}
+@media (max-width: 900px) {
+  .navbarKapakner { display: none; }
+  .burgerKnop { display: flex; }
+}
+@media (max-width: 480px) {
+  .navbarAnagir { display: none; }
+}

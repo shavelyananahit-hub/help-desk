@@ -1,5 +1,6 @@
 // TsanusatsurnModal — Tsanusatsurni Ստեղծել/Խմբագրել Modal
 import { useState, useEffect } from 'react';
+import { Pencil, Bell, Eye, Loader2, AlertTriangle, Info, XCircle, CheckCircle2 } from 'lucide-react';
 import Modal from './Modal';
 
 const datarkNakhnayin = {
@@ -10,22 +11,16 @@ const datarkNakhnayin = {
   tiket_id: '',
 };
 
-const tesakerNshanner = {
-  'Տեղեկություն': 'ℹ️',
-  'Զգուշացում': '⚠️',
-  'Սխալ': '❌',
-  'Հաջողություն': '✅',
-};
 
-export default function TsanusatsurnModal({ batsKa, vercnel, xmbagrvogTsanusatsurn, pahanel, ogtaterneр = [], tiketer = [] }) {
-  const [dzevakertTvyalner, setDzevakertTvyalner] = useState(datarkNakhnayin);
-  const [barcracumKa, setBarcracumKa] = useState(false);
-  const [skhalter, setSkhalter] = useState({});
-  const norsogum = !!xmbagrvogTsanusatsurn;
+export default function TsanusatsurnModal({ isOpen, onClose, xmbagrvogTsanusatsurn, onSubmit, ogtaterneр = [], tiketer = [], isViewMode = false }) {
+  const [formData, setFormData] = useState(datarkNakhnayin);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const isEditMode = !!xmbagrvogTsanusatsurn && !isViewMode;
 
   useEffect(() => {
     if (xmbagrvogTsanusatsurn) {
-      setDzevakertTvyalner({
+      setFormData({
         haghordagutyun: xmbagrvogTsanusatsurn.haghordagutyun || '',
         tesak: xmbagrvogTsanusatsurn.tesak || 'Տեղեկություն',
         kardatsvatsd: !!xmbagrvogTsanusatsurn.kardatsvatsd,
@@ -33,71 +28,73 @@ export default function TsanusatsurnModal({ batsKa, vercnel, xmbagrvogTsanusatsu
         tiket_id: xmbagrvogTsanusatsurn.tiket_id || '',
       });
     } else {
-      setDzevakertTvyalner(datarkNakhnayin);
+      setFormData(datarkNakhnayin);
     }
-    setSkhalter({});
-  }, [xmbagrvogTsanusatsurn, batsKa]);
+    setErrors({});
+  }, [xmbagrvogTsanusatsurn, isOpen]);
 
   const nkaragrel = (anun, arjanekh) => {
-    setDzevakertTvyalner(prev => ({ ...prev, [anun]: arjanekh }));
-    if (skhalter[anun]) setSkhalter(prev => ({ ...prev, [anun]: '' }));
+    setFormData(prev => ({ ...prev, [anun]: arjanekh }));
+    if (errors[anun]) setErrors(prev => ({ ...prev, [anun]: '' }));
   };
 
-  const pahanel_submit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!dzevakertTvyalner.haghordagutyun.trim()) {
-      setSkhalter({ haghordagutyun: 'Հաղորդագրությունը պարտադիր է' });
+    if (isViewMode) return;
+
+    if (!formData.haghordagutyun.trim()) {
+      setErrors({ haghordagutyun: 'Հաղորդագրությունը պարտադիր է' });
       return;
     }
-    setBarcracumKa(true);
+    setIsLoading(true);
     try {
-      await pahanel({
-        ...dzevakertTvyalner,
-        ogtater_id: dzevakertTvyalner.ogtater_id || null,
-        tiket_id: dzevakertTvyalner.tiket_id || null,
+      await onSubmit({
+        ...formData,
+        ogtater_id: formData.ogtater_id || null,
+        tiket_id: formData.tiket_id || null,
       });
-      vercnel();
+      onClose();
     } catch (սխալ) {
-      setSkhalter({ global: սխալ.message || 'Սխալ տեղի ունեցավ' });
+      setErrors({ global: սխալ.message || 'Սխալ տեղի ունեցավ' });
     } finally {
-      setBarcracumKa(false);
+      setIsLoading(false);
     }
   };
 
   return (
-    <Modal batsKa={batsKa} vercnel={vercnel} anagir={norsogum ? 'Խմբագրել Ծանուցումը' : 'Ստեղծել Նոր Ծանուցում'} nshani={norsogum ? '✏️' : '🔔'}>
-      <form className="dzevakert-khumb" onSubmit={pahanel_submit} id="tsanusatsurn-dzevakert">
-        {skhalter.global && (
+    <Modal isOpen={isOpen} onClose={onClose} title={isViewMode ? 'Դիտել Ծանուցումը' : isEditMode ? 'Խմբագրել Ծանուցումը' : 'Ստեղծել Նոր Ծանուցում'} icon={isViewMode ? <Eye size={20} /> : isEditMode ? <Pencil size={20} /> : <Bell size={20} />}>
+      <form className="dzevakert-khumb" onSubmit={handleSubmit} id="tsanusatsurn-dzevakert">
+        {errors.global && (
           <div style={{ background: 'rgba(244,63,94,0.12)', border: '1px solid rgba(244,63,94,0.3)', borderRadius: 10, padding: '12px 16px', color: '#f43f5e', fontSize: '0.9rem' }}>
-            ⚠️ {skhalter.global}
+            <AlertTriangle size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 6 }} /> {errors.global}
           </div>
         )}
 
         <div className="dzevakert-dasht">
           <label className="dzevakert-dzevagir pahanjvats" htmlFor="ts-haghordagutyun">Հաղորդագրություն</label>
-          <textarea id="ts-haghordagutyun" className="dzevakert-bnagir" value={dzevakertTvyalner.haghordagutyun}
+          <textarea id="ts-haghordagutyun" className={`dzevakert-muts ${errors.haghordagutyun ? 'skhalt' : ''}`} value={formData.haghordagutyun}
             onChange={(e) => nkaragrel('haghordagutyun', e.target.value)}
-            placeholder="Ծանուցման հաղորդագրությունը..." rows={3} />
-          {skhalter.haghordagutyun && <span className="dzevakert-skhalt">{skhalter.haghordagutyun}</span>}
+            placeholder="Ծանուցման հաղորդագրությունը..." rows={3} disabled={isViewMode} />
+          {errors.haghordagutyun && <span className="dzevakert-skhalt">{errors.haghordagutyun}</span>}
         </div>
 
         <div className="dzevakert-shor">
           <div className="dzevakert-dasht">
             <label className="dzevakert-dzevagir" htmlFor="ts-tesak">Տեսակ</label>
-            <select id="ts-tesak" className="dzevakert-mintchev" value={dzevakertTvyalner.tesak}
-              onChange={(e) => nkaragrel('tesak', e.target.value)}>
-              <option value="Տեղեկություն">ℹ️ Տեղեկություն</option>
-              <option value="Զգուշացում">⚠️ Զգուշացում</option>
-              <option value="Սխալ">❌ Սխալ</option>
-              <option value="Հաջողություն">✅ Հաջողություն</option>
+            <select id="ts-tesak" className="dzevakert-mintchev" value={formData.tesak}
+              onChange={(e) => nkaragrel('tesak', e.target.value)} disabled={isViewMode}>
+              <option value="Տեղեկություն">Տեղեկություն</option>
+              <option value="Զգուշացում">Զգուշացում</option>
+              <option value="Սխալ">Սխալ</option>
+              <option value="Հաջողություն">Հաջողություն</option>
             </select>
           </div>
           <div className="dzevakert-dasht">
             <label className="dzevakert-dzevagir" htmlFor="ts-kardatsvatsd">Կարդացվա՞ծ է</label>
-            <select id="ts-kardatsvatsd" className="dzevakert-mintchev" value={dzevakertTvyalner.kardatsvatsd ? 'true' : 'false'}
-              onChange={(e) => nkaragrel('kardatsvatsd', e.target.value === 'true')}>
-              <option value="false">📭 Չկարդացված</option>
-              <option value="true">📬 Կարդացված</option>
+            <select id="ts-kardatsvatsd" className="dzevakert-mintchev" value={formData.kardatsvatsd ? 'true' : 'false'}
+              onChange={(e) => nkaragrel('kardatsvatsd', e.target.value === 'true')} disabled={isViewMode}>
+              <option value="false">Չկարդացված</option>
+              <option value="true">Կարդացված</option>
             </select>
           </div>
         </div>
@@ -105,16 +102,16 @@ export default function TsanusatsurnModal({ batsKa, vercnel, xmbagrvogTsanusatsu
         <div className="dzevakert-shor">
           <div className="dzevakert-dasht">
             <label className="dzevakert-dzevagir" htmlFor="ts-ogtater">Ստացող օգտատեր</label>
-            <select id="ts-ogtater" className="dzevakert-mintchev" value={dzevakertTvyalner.ogtater_id}
-              onChange={(e) => nkaragrel('ogtater_id', e.target.value)}>
+            <select id="ts-ogtater" className="dzevakert-mintchev" value={formData.ogtater_id || ''}
+              onChange={(e) => nkaragrel('ogtater_id', e.target.value ? parseInt(e.target.value) : '')} disabled={isViewMode}>
               <option value="">— Ընտրել Օգտատեր —</option>
               {ogtaterneр.map((o) => <option key={o.id} value={o.id}>{o.anun} {o.azganun}</option>)}
             </select>
           </div>
           <div className="dzevakert-dasht">
             <label className="dzevakert-dzevagir" htmlFor="ts-tiket">Կապված Տոմս</label>
-            <select id="ts-tiket" className="dzevakert-mintchev" value={dzevakertTvyalner.tiket_id}
-              onChange={(e) => nkaragrel('tiket_id', e.target.value)}>
+            <select id="ts-tiket" className="dzevakert-mintchev" value={formData.tiket_id || ''}
+              onChange={(e) => nkaragrel('tiket_id', e.target.value ? parseInt(e.target.value) : '')} disabled={isViewMode}>
               <option value="">— Ընտրել Տոմս —</option>
               {tiketer.map((t) => <option key={t.id} value={t.id}>#{t.id} {t.vernagir}</option>)}
             </select>
@@ -122,10 +119,12 @@ export default function TsanusatsurnModal({ batsKa, vercnel, xmbagrvogTsanusatsu
         </div>
 
         <div className="modal-kolutyun" style={{ padding: '20px 0 0' }}>
-          <button type="button" className="kochumn-knop khnamelu-knop" onClick={vercnel} disabled={barcracumKa} id="ts-modal-veradardal">Վերադառնալ</button>
-          <button type="submit" className="kochumn-knop hsnakan-knop" disabled={barcracumKa} id="ts-modal-pahanel">
-            {barcracumKa ? '⏳ Պահպանվում է...' : `${norsogum ? '✏️ Պահպանել' : '🔔 Ստեղծել'}`}
-          </button>
+          <button type="button" className="kochumn-knop khnamelu-knop" onClick={onClose} disabled={isLoading} id="ts-modal-veradardal">{isViewMode ? 'Փակել' : 'Վերադառնալ'}</button>
+          {!isViewMode && (
+            <button type="submit" className="kochumn-knop hsnakan-knop" disabled={isLoading} id="ts-modal-pahanel">
+              {isLoading ? <><Loader2 className="animate-spin" size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 6 }} /> Պահպանվում է...</> : isEditMode ? <><Pencil size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 6 }} /> Պահպանել</> : <><Bell size={16} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 6 }} /> Ստեղծել</>}
+            </button>
+          )}
         </div>
       </form>
     </Modal>

@@ -1,10 +1,12 @@
 // Tsanusatsurnner — Tsanusatsurnneri Karavarum (Notifications Management)
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/router';
+import { Bell, PlusCircle, Pencil, Trash2, CheckCircle2, XCircle, User, Ticket, Check, Info, AlertTriangle, MailOpen, Mail, Eye } from 'lucide-react';
 import Head from 'next/head';
 import TsanusatsurnModal from '../components/TsanusatsurnModal';
 import DeleteModal from '../components/DeleteModal';
 
-const tesakNshanner = { 'Տեղեկություն': 'ℹ️', 'Զգուշացում': '⚠️', 'Սխալ': '❌', 'Հաջողություն': '✅' };
+const tesakNshanner = { 'Տեղեկություն': <Info size={16} />, 'Զգուշացում': <AlertTriangle size={16} />, 'Սխալ': <XCircle size={16} />, 'Հաջողություն': <CheckCircle2 size={16} /> };
 const tesakGuyner = {
   'Տեղեկություն': { bg: 'rgba(56,189,248,0.15)', color: '#38bdf8', border: 'rgba(56,189,248,0.3)' },
   'Զգուշացում': { bg: 'rgba(245,158,11,0.15)', color: '#f59e0b', border: 'rgba(245,158,11,0.3)' },
@@ -13,6 +15,7 @@ const tesakGuyner = {
 };
 
 export default function TsanusatsurnneriKaravarum() {
+  const router = useRouter();
   const [bololTsanusatsurnner, setBololTsanusatsurnner] = useState([]);
   const [ogtaterneр, setOgtaterneр] = useState([]);
   const [tiketer, setTiketer] = useState([]);
@@ -20,6 +23,7 @@ export default function TsanusatsurnneriKaravarum() {
   const [barcracumKa, setBarcracumKa] = useState(true);
   const [modalBatsKa, setModalBatsKa] = useState(false);
   const [xmbagrvogTs, setXmbagrvogTs] = useState(null);
+  const [isViewMode, setIsViewMode] = useState(false);
   const [jnjvogId, setJnjvogId] = useState(null);
   const [jnjelModalBatsKa, setJnjelModalBatsKa] = useState(false);
   const [jnjumBarcracumKa, setJnjumBarcracumKa] = useState(false);
@@ -49,6 +53,12 @@ export default function TsanusatsurnneriKaravarum() {
   }, [tsnuytsToast]);
 
   useEffect(() => { bererTvyalner(); }, [bererTvyalner]);
+
+  useEffect(() => {
+    if (router.isReady && router.query.kardatsvatsd) {
+      setKardatsvatsdzZtrel(router.query.kardatsvatsd);
+    }
+  }, [router.isReady, router.query.kardatsvatsd]);
 
   const pahanelTs = async (dzev) => {
     const method = xmbagrvogTs ? 'PUT' : 'POST';
@@ -111,7 +121,7 @@ export default function TsanusatsurnneriKaravarum() {
         <div className="ejhakutyunayin-bnagir">
           <div>
             <h1 className="ejhakutyunayin-anagir">
-              🔔 Ծանուցումներ
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Bell size={28} /> Ծանուցումներ</span>
               {akardatsvatsdz > 0 && (
                 <span style={{ marginLeft: 12, fontSize: '1rem', background: '#f43f5e', color: '#fff', padding: '2px 10px', borderRadius: 999, fontWeight: 700 }}>
                   {akardatsvatsdz} nor
@@ -120,8 +130,8 @@ export default function TsanusatsurnneriKaravarum() {
             </h1>
             <p className="ejhakutyunayin-nkaragrutyun">{bololTsanusatsurnner.length} ծանուցում, {akardatsvatsdz} չկարդացված</p>
           </div>
-          <button className="kochumn-knop hsnakan-knop" onClick={() => { setXmbagrvogTs(null); setModalBatsKa(true); }} id="steghcel-nor-tsanusatsurn">
-            ✨ Նոր Ծանուցում
+          <button className="kochumn-knop hsnakan-knop" onClick={() => { setXmbagrvogTs(null); setIsViewMode(false); setModalBatsKa(true); }} id="steghcel-nor-tsanusatsurn">
+            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><PlusCircle size={18} /> Նոր Ծանուցում</span>
           </button>
         </div>
 
@@ -129,8 +139,8 @@ export default function TsanusatsurnneriKaravarum() {
           <select className="dzevakert-mintchev" style={{ minWidth: 200 }} value={kardatsvatsdzZtrel}
             onChange={(e) => setKardatsvatsdzZtrel(e.target.value)} id="kardatsvatsdz-ztrel">
             <option value="">Բոլոր Ծանուցումները</option>
-            <option value="false">📭 Չկարդացվածներ</option>
-            <option value="true">📬 Կարդացվածներ</option>
+            <option value="false">Չկարդացվածներ</option>
+            <option value="true">Կարդացվածներ</option>
           </select>
         </div>
 
@@ -139,7 +149,7 @@ export default function TsanusatsurnneriKaravarum() {
             <div className="barcracum-vichak"><div className="barcracum-shrjanag" /><span>Բեռնվում է...</span></div>
           ) : zarrkvats.length === 0 ? (
             <div className="datark-vichak">
-              <div className="datark-nshani">🔔</div>
+              <div className="datark-nshani"><Bell size={48} /></div>
               <div className="datark-anagir">Ծանուցումներ չկան</div>
             </div>
           ) : (
@@ -157,21 +167,23 @@ export default function TsanusatsurnneriKaravarum() {
                     </div>
                     <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: 6, display: 'flex', gap: 16, flexWrap: 'wrap' }}>
                       <span>#{ts.id}</span>
-                      {ts.stacoghogtater && <span>👤 {ts.stacoghogtater.anun} {ts.stacoghogtater.azganun}</span>}
-                      {ts.kapvatstiket && <span>🎫 #{ts.kapvatstiket.id} {ts.kapvatstiket.vernagir}</span>}
+                      {ts.stacoghogtater && <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><User size={14} /> {ts.stacoghogtater.anun} {ts.stacoghogtater.azganun}</span>}
+                      {ts.kapvatstiket && <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Ticket size={14} /> #{ts.kapvatstiket.id} {ts.kapvatstiket.vernagir}</span>}
                       <span style={{ color: guyn.color }}>{ts.tesak}</span>
-                      <span>{ts.kardatsvatsd ? '📬 Կարդացված' : '📭 Չկարդացված'}</span>
+                      <span>{ts.kardatsvatsd ? <><MailOpen size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} /> Կարդացված</> : <><Mail size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 4 }} /> Չկարդացված</>}</span>
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
                     {!ts.kardatsvatsd && (
                       <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Նշանակել որպես կարդացված"
-                        onClick={() => nshanakelKardatsvatsdz(ts.id)} id={`kard-ts-${ts.id}`}>✓</button>
+                        onClick={() => nshanakelKardatsvatsdz(ts.id)} id={`kard-ts-${ts.id}`}><Check size={16} /></button>
                     )}
+                    <button className="kochumn-knop tarmarkutyan-knop patan-knop" style={{ color: '#8b5cf6', background: 'rgba(139, 92, 246, 0.15)', borderColor: 'rgba(139, 92, 246, 0.3)' }} title="Դիտել"
+                      onClick={() => { setXmbagrvogTs(ts); setIsViewMode(true); setModalBatsKa(true); }} id={`ditel-ts-${ts.id}`}><Eye size={16} /></button>
                     <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Խմբագրել"
-                      onClick={() => { setXmbagrvogTs(ts); setModalBatsKa(true); }} id={`xmbagrel-ts-${ts.id}`}>✏️</button>
+                      onClick={() => { setXmbagrvogTs(ts); setIsViewMode(false); setModalBatsKa(true); }} id={`xmbagrel-ts-${ts.id}`}><Pencil size={16} /></button>
                     <button className="kochumn-knop jnjelu-knop patan-knop" title="Ջնջել"
-                      onClick={() => { setJnjvogId(ts.id); setJnjelModalBatsKa(true); }} id={`jnjel-ts-${ts.id}`}>🗑️</button>
+                      onClick={() => { setJnjvogId(ts.id); setJnjelModalBatsKa(true); }} id={`jnjel-ts-${ts.id}`}><Trash2 size={16} /></button>
                   </div>
                 </div>
               );
@@ -180,15 +192,15 @@ export default function TsanusatsurnneriKaravarum() {
         </div>
       </main>
 
-      <TsanusatsurnModal batsKa={modalBatsKa} vercnel={() => { setModalBatsKa(false); setXmbagrvogTs(null); }}
-        xmbagrvogTsanusatsurn={xmbagrvogTs} pahanel={pahanelTs} ogtaterneр={ogtaterneр} tiketer={tiketer} />
-      <DeleteModal batsKa={jnjelModalBatsKa} vercnel={() => setJnjelModalBatsKa(false)}
-        anagir="Վստա՞հ եք, որ ուզում եք ջնջել այս ծանուցումը։"
-        hashtvarel={hashtvarel} barcracumKa={jnjumBarcracumKa} />
+      <TsanusatsurnModal isOpen={modalBatsKa} onClose={() => { setModalBatsKa(false); setXmbagrvogTs(null); setIsViewMode(false); }}
+        xmbagrvogTsanusatsurn={xmbagrvogTs} onSubmit={pahanelTs} ogtaterneр={ogtaterneр} tiketer={tiketer} isViewMode={isViewMode} />
+      <DeleteModal isOpen={jnjelModalBatsKa} onClose={() => setJnjelModalBatsKa(false)}
+        title="Վստա՞հ եք, որ ուզում եք ջնջել այս ծանուցումը։"
+        onConfirm={hashtvarel} isLoading={jnjumBarcracumKa} />
       {toast && (
         <div className="toast-zanazan">
           <div className={`toast-bak ${toast.tesak}`}>
-            <span>{toast.tesak === 'հաջողություն' ? '✅' : '❌'}</span>
+            <span>{toast.tesak === 'հաջողություն' ? <CheckCircle2 size={20} /> : <XCircle size={20} />}</span>
             <span style={{ fontSize: '0.9rem' }}>{toast.haghordagutyun}</span>
           </div>
         </div>

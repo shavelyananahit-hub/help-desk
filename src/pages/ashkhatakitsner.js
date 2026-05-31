@@ -1,5 +1,6 @@
 // Աշխատակիցներ — Ashkhatakitsneri Karavarum (Employees Management)
 import { useState, useEffect, useCallback } from 'react';
+import { Briefcase, PlusCircle, Search, Pencil, Trash2, CheckCircle2, XCircle, Eye } from 'lucide-react';
 import Head from 'next/head';
 import AshkhatakitsModal from '../components/AshkhatakitsModal';
 import DeleteModal from '../components/DeleteModal';
@@ -11,6 +12,7 @@ export default function AshkhatakitsneriKaravarum() {
   const [barcracumKa, setBarcracumKa] = useState(true);
   const [modalBatsKa, setModalBatsKa] = useState(false);
   const [xmbagrvogAshkhatakits, setXmbagrvogAshkhatakits] = useState(null);
+  const [isViewMode, setIsViewMode] = useState(false);
   const [jnjvogId, setJnjvogId] = useState(null);
   const [jnjelModalBatsKa, setJnjelModalBatsKa] = useState(false);
   const [jnjumBarcracumKa, setJnjumBarcracumKa] = useState(false);
@@ -77,25 +79,25 @@ export default function AshkhatakitsneriKaravarum() {
       <main className="hastsumnayin-kartik">
         <div className="ejhakutyunayin-bnagir">
           <div>
-            <h1 className="ejhakutyunayin-anagir">👨‍💼 Աշխատակիցներ</h1>
+            <h1 className="ejhakutyunayin-anagir" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Briefcase size={28} /> Աշխատակիցներ</h1>
             <p className="ejhakutyunayin-nkaragrutyun">{bololAshkhatakitsner.length} աշխատակից գրանցված է համակարգում</p>
           </div>
-          <button className="kochumn-knop hsnakan-knop" onClick={() => { setXmbagrvogAshkhatakits(null); setModalBatsKa(true); }} id="steghcel-nor-ashkhatakits">
-            ✨ Նոր Աշխատակից
+          <button className="kochumn-knop hsnakan-knop" onClick={() => { setXmbagrvogAshkhatakits(null); setIsViewMode(false); setModalBatsKa(true); }} id="steghcel-nor-ashkhatakits">
+            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><PlusCircle size={18} /> Նոր Աշխատակից</span>
           </button>
         </div>
 
         <div className="kndurutyun-bak">
           <div className="pretrutyan-muts-bak" style={{ flex: 2 }}>
-            <span className="pretrutyan-nshani">🔍</span>
+            <span className="pretrutyan-nshani"><Search size={18} /></span>
             <input className="pretrutyan-muts" placeholder="Որոնել անուն, բաժին..." value={pretrutyunArarkogh}
               onChange={(e) => setPretrutyunArarkogh(e.target.value)} id="ash-pretrutyun" />
           </div>
           <select className="dzevakert-mintchev" style={{ minWidth: 160 }} value={aktivZtrel}
             onChange={(e) => setAktivZtrel(e.target.value)} id="aktiv-ztrel">
             <option value="">Բոլոր Վիճակները</option>
-            <option value="true">✅ Ակտիվ</option>
-            <option value="false">❌ Ոչ ակտիվ</option>
+            <option value="true">Ակտիվ</option>
+            <option value="false">Ոչ ակտիվ</option>
           </select>
         </div>
 
@@ -104,7 +106,7 @@ export default function AshkhatakitsneriKaravarum() {
             <div className="barcracum-vichak"><div className="barcracum-shrjanag" /><span>Բեռնվում է...</span></div>
           ) : zarrkvats.length === 0 ? (
             <div className="datark-vichak">
-              <div className="datark-nshani">👨‍💼</div>
+              <div className="datark-nshani"><Briefcase size={48} /></div>
               <div className="datark-anagir">Աշխատակիցներ չկան</div>
             </div>
           ) : (
@@ -131,11 +133,12 @@ export default function AshkhatakitsneriKaravarum() {
                     <td style={{ color: '#94a3b8' }}>{ash.pashton || '—'}</td>
                     <td style={{ color: '#94a3b8', fontSize: '0.85rem' }}>{ash.elektronerayin_hasce}</td>
                     <td style={{ color: '#94a3b8' }}>{ash.herakhosahamer || '—'}</td>
-                    <td><span className={`petakan-nshani ${ash.aktiv ? 'aktiv-nshani' : 'voktiv-nshani'}`}>{ash.aktiv ? '✅ Ակտիվ' : '❌ Ոչ ակտիվ'}</span></td>
+                    <td style={{ whiteSpace: 'nowrap' }}><span className={`petakan-nshani ${ash.aktiv ? 'aktiv-nshani' : 'voktiv-nshani'}`}>{ash.aktiv ? 'Ակտիվ' : 'Ոչ ակտիվ'}</span></td>
                     <td>
                       <div className="gortsolutyunneri-shor">
-                        <button className="kochumn-knop tarmarkutyan-knop patan-knop" onClick={() => { setXmbagrvogAshkhatakits(ash); setModalBatsKa(true); }} id={`xmbagrel-ash-${ash.id}`}>✏️</button>
-                        <button className="kochumn-knop jnjelu-knop patan-knop" onClick={() => { setJnjvogId(ash.id); setJnjelModalBatsKa(true); }} id={`jnjel-ash-${ash.id}`}>🗑️</button>
+                        <button className="kochumn-knop tarmarkutyan-knop patan-knop" style={{ color: '#8b5cf6', background: 'rgba(139, 92, 246, 0.15)', borderColor: 'rgba(139, 92, 246, 0.3)' }} title="Դիտել" onClick={() => { setXmbagrvogAshkhatakits(ash); setIsViewMode(true); setModalBatsKa(true); }} id={`ditel-ash-${ash.id}`}><Eye size={16} /></button>
+                        <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Խմբագրել" onClick={() => { setXmbagrvogAshkhatakits(ash); setIsViewMode(false); setModalBatsKa(true); }} id={`xmbagrel-ash-${ash.id}`}><Pencil size={16} /></button>
+                        <button className="kochumn-knop jnjelu-knop patan-knop" title="Ջնջել" onClick={() => { setJnjvogId(ash.id); setJnjelModalBatsKa(true); }} id={`jnjel-ash-${ash.id}`}><Trash2 size={16} /></button>
                       </div>
                     </td>
                   </tr>
@@ -146,15 +149,15 @@ export default function AshkhatakitsneriKaravarum() {
         </div>
       </main>
 
-      <AshkhatakitsModal batsKa={modalBatsKa} vercnel={() => { setModalBatsKa(false); setXmbagrvogAshkhatakits(null); }}
-        xmbagrvogAshkhatakits={xmbagrvogAshkhatakits} pahanel={pahanelAshkhatakits} />
-      <DeleteModal batsKa={jnjelModalBatsKa} vercnel={() => setJnjelModalBatsKa(false)}
-        anagir="Վստա՞հ եք, որ ուզում եք ջնջել այս աշխատակցին։"
-        hashtvarel={hashtvarel} barcracumKa={jnjumBarcracumKa} />
+      <AshkhatakitsModal isOpen={modalBatsKa} onClose={() => { setModalBatsKa(false); setXmbagrvogAshkhatakits(null); setIsViewMode(false); }}
+        xmbagrvogAshkhatakits={xmbagrvogAshkhatakits} onSubmit={pahanelAshkhatakits} isViewMode={isViewMode} />
+      <DeleteModal isOpen={jnjelModalBatsKa} onClose={() => setJnjelModalBatsKa(false)}
+        title="Վստա՞հ եք, որ ուզում եք ջնջել այս աշխատակցին։"
+        onConfirm={hashtvarel} isLoading={jnjumBarcracumKa} />
       {toast && (
         <div className="toast-zanazan">
           <div className={`toast-bak ${toast.tesak}`}>
-            <span>{toast.tesak === 'հաջողություն' ? '✅' : '❌'}</span>
+            <span>{toast.tesak === 'հաջողություն' ? <CheckCircle2 size={20} /> : <XCircle size={20} />}</span>
             <span style={{ fontSize: '0.9rem' }}>{toast.haghordagutyun}</span>
           </div>
         </div>

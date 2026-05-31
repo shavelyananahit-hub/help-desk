@@ -1,5 +1,6 @@
 // Ogtaterneр — Ogtaterneri Karavarum (Users Management)
 import { useState, useEffect, useCallback } from 'react';
+import { Users, PlusCircle, Search, Pencil, Trash2, CheckCircle2, XCircle, Eye } from 'lucide-react';
 import Head from 'next/head';
 import OgtaterModal from '../components/OgtaterModal';
 import DeleteModal from '../components/DeleteModal';
@@ -10,6 +11,7 @@ export default function OgtaterneriKaravarum() {
   const [barcracumKa, setBarcracumKa] = useState(true);
   const [steghcelModalBatsKa, setSteghcelModalBatsKa] = useState(false);
   const [xmbagrvogOgtater, setXmbagrvogOgtater] = useState(null);
+  const [isViewMode, setIsViewMode] = useState(false);
   const [jnjvogOgtaterId, setJnjvogOgtaterId] = useState(null);
   const [jnjelModalBatsKa, setJnjelModalBatsKa] = useState(false);
   const [jnjumBarcracumKa, setJnjumBarcracumKa] = useState(false);
@@ -82,18 +84,18 @@ export default function OgtaterneriKaravarum() {
       <main className="hastsumnayin-kartik">
         <div className="ejhakutyunayin-bnagir">
           <div>
-            <h1 className="ejhakutyunayin-anagir">👥 Օգտատերեր</h1>
+            <h1 className="ejhakutyunayin-anagir" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Users size={28} /> Օգտատերեր</h1>
             <p className="ejhakutyunayin-nkaragrutyun">{bololOgtaterneр.length} օգտատեր գրանցված է համակարգում</p>
           </div>
-          <button className="kochumn-knop hsnakan-knop" onClick={() => { setXmbagrvogOgtater(null); setSteghcelModalBatsKa(true); }} id="steghcel-nor-ogtater">
-            ✨ Նոր Օգտատեր
+          <button className="kochumn-knop hsnakan-knop" onClick={() => { setXmbagrvogOgtater(null); setIsViewMode(false); setSteghcelModalBatsKa(true); }} id="steghcel-nor-ogtater">
+            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><PlusCircle size={18} /> Նոր Օգտատեր</span>
           </button>
         </div>
 
         {/* Pretrutyun */}
         <div className="kndurutyun-bak">
           <div className="pretrutyan-muts-bak">
-            <span className="pretrutyan-nshani">🔍</span>
+            <span className="pretrutyan-nshani"><Search size={18} /></span>
             <input className="pretrutyan-muts" type="text" placeholder="Որոնել անուն, ազգանուն, էլ. հասցե..."
               value={pretrutyunArarkogh} onChange={(e) => setPretrutyunArarkogh(e.target.value)} id="ogtater-pretrutyun" />
           </div>
@@ -105,7 +107,7 @@ export default function OgtaterneriKaravarum() {
             <div className="barcracum-vichak"><div className="barcracum-shrjanag" /><span>Բեռնվում է...</span></div>
           ) : zarrkvatsOgtaterneр.length === 0 ? (
             <div className="datark-vichak">
-              <div className="datark-nshani">👥</div>
+              <div className="datark-nshani"><Users size={48} /></div>
               <div className="datark-anagir">{pretrutyunArarkogh ? 'Որոնումով արդյունք չգտնվեց' : 'Օգտատերեր չկան'}</div>
               <div className="datark-nkaragrutyun">{pretrutyunArarkogh ? 'Կատարեք այլ որոնում' : 'Սկսել նոր օգտատեր ստեղծելով'}</div>
             </div>
@@ -140,12 +142,15 @@ export default function OgtaterneriKaravarum() {
                     <td><span className="petakan-nshani der-nshani">{ogtater.der}</span></td>
                     <td>
                       <div className="gortsolutyunneri-shor">
+                        <button className="kochumn-knop tarmarkutyan-knop patan-knop" style={{ color: '#8b5cf6', background: 'rgba(139, 92, 246, 0.15)', borderColor: 'rgba(139, 92, 246, 0.3)' }} title="Դիտել"
+                          onClick={() => { setXmbagrvogOgtater(ogtater); setIsViewMode(true); setSteghcelModalBatsKa(true); }}
+                          id={`ditel-ogtater-${ogtater.id}`}><Eye size={16} /></button>
                         <button className="kochumn-knop tarmarkutyan-knop patan-knop" title="Խմբագրել"
-                          onClick={() => { setXmbagrvogOgtater(ogtater); setSteghcelModalBatsKa(true); }}
-                          id={`xmbagrel-ogtater-${ogtater.id}`}>✏️</button>
+                          onClick={() => { setXmbagrvogOgtater(ogtater); setIsViewMode(false); setSteghcelModalBatsKa(true); }}
+                          id={`xmbagrel-ogtater-${ogtater.id}`}><Pencil size={16} /></button>
                         <button className="kochumn-knop jnjelu-knop patan-knop" title="Ջնջել"
                           onClick={() => { setJnjvogOgtaterId(ogtater.id); setJnjelModalBatsKa(true); }}
-                          id={`jnjel-ogtater-${ogtater.id}`}>🗑️</button>
+                          id={`jnjel-ogtater-${ogtater.id}`}><Trash2 size={16} /></button>
                       </div>
                     </td>
                   </tr>
@@ -156,18 +161,18 @@ export default function OgtaterneriKaravarum() {
         </div>
       </main>
 
-      <OgtaterModal batsKa={steghcelModalBatsKa} vercnel={() => { setSteghcelModalBatsKa(false); setXmbagrvogOgtater(null); }}
-        xmbagrvogOgtater={xmbagrvogOgtater} pahanel={pahanelOgtater} />
+      <OgtaterModal isOpen={steghcelModalBatsKa} onClose={() => { setSteghcelModalBatsKa(false); setXmbagrvogOgtater(null); setIsViewMode(false); }}
+        xmbagrvogOgtater={xmbagrvogOgtater} onSubmit={pahanelOgtater} isViewMode={isViewMode} />
 
-      <DeleteModal batsKa={jnjelModalBatsKa} vercnel={() => setJnjelModalBatsKa(false)}
-        anagir="Վստա՞հ եք, որ ուզում եք ջնջել այս օգտատիրոջը։"
-        nkaragrutyun="Օգտատիրոջը ջնջելու դեպքում տվյալները կկորչեն"
-        hashtvarel={hashtvarel} barcracumKa={jnjumBarcracumKa} />
+      <DeleteModal isOpen={jnjelModalBatsKa} onClose={() => setJnjelModalBatsKa(false)}
+        title="Վստա՞հ եք, որ ուզում եք ջնջել այս օգտատիրոջը։"
+        description="Օգտատիրոջը ջնջելու դեպքում տվյալները կկորչեն"
+        onConfirm={hashtvarel} isLoading={jnjumBarcracumKa} />
 
       {toast && (
         <div className="toast-zanazan">
           <div className={`toast-bak ${toast.tesak}`}>
-            <span>{toast.tesak === 'հաջողություն' ? '✅' : '❌'}</span>
+            <span>{toast.tesak === 'հաջողություն' ? <CheckCircle2 size={20} /> : <XCircle size={20} />}</span>
             <span style={{ fontSize: '0.9rem' }}>{toast.haghordagutyun}</span>
           </div>
         </div>

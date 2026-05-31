@@ -52,7 +52,7 @@ module.exports = {
         nkaragrutyun: 'Պրինտերի միացման խնդիր, գործարկվող Epson WF‑2830',
         kargnish: 'Բարձր',
         kargavichak: 'Փակված',
-        kategoria: 'Թպիչ',
+        kategoria: 'Տպիչ',
         ogtater_id: getOgtaterId(0),
         ashkhatakits_id: getAshkhatakitsId(2),
         created_at: new Date(),

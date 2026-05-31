@@ -1,13 +1,14 @@
 // Modal — Ունiversal Modal Barchratsol (Universal Modal Wrapper)
 import { useEffect } from 'react';
+import { X } from 'lucide-react';
 
-export default function Modal({ batsKa, vercnel, anagir, nshani, children, lajox = false }) {
+export default function Modal({ isOpen, onClose, title, icon, children, isWide = false }) {
   // Ստeghnel ESC-ov modal-y vercnel (Close on ESC)
   useEffect(() => {
     const kochakutyun = (iraradzaynutyun) => {
-      if (iraradzaynutyun.key === 'Escape') vercnel();
+      if (iraradzaynutyun.key === 'Escape') onClose();
     };
-    if (batsKa) {
+    if (isOpen) {
       document.addEventListener('keydown', kochakutyun);
       document.body.style.overflow = 'hidden';
     }
@@ -15,24 +16,24 @@ export default function Modal({ batsKa, vercnel, anagir, nshani, children, lajox
       document.removeEventListener('keydown', kochakutyun);
       document.body.style.overflow = '';
     };
-  }, [batsKa, vercnel]);
+  }, [isOpen, onClose]);
 
-  if (!batsKa) return null;
+  if (!isOpen) return null;
 
   // Shat lajox modal-ner (Wide modals)
-  const lajoxMejberd = lajox ? { maxWidth: '720px' } : {};
+  const lajoxMejberd = isWide ? { maxWidth: '720px' } : {};
 
   return (
-    <div className="modal-arka" onClick={(e) => e.target === e.currentTarget && vercnel()} role="dialog" aria-modal="true">
+    <div className="modal-arka" onClick={(e) => e.target === e.currentTarget && onClose()} role="dialog" aria-modal="true">
       <div className="modal-barek" style={lajoxMejberd}>
         {/* Vernagrutyun (Header) */}
         <div className="modal-vercnagrutyun">
           <div className="modal-anagir">
-            {nshani && <span>{nshani}</span>}
-            {anagir}
+            {icon && <span>{icon}</span>}
+            {title}
           </div>
-          <button className="modal-muten-knop" onClick={vercnel} aria-label="Փակել" id="modal-muten-knop">
-            ✕
+          <button className="modal-muten-knop" onClick={onClose} aria-label="Փակել" id="modal-muten-knop">
+            <X size={20} />
           </button>
         </div>
         {/* Marmin (Body) */}
